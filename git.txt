@@ -1,0 +1,5 @@
+Git init creas el  .git si
+Git add añade el archivo a la zona stagged (no se traducción). Es la zona donde se almacenan los cambios que se quieren subir
+Git commit, hace el commit, que es el paquete de cambios que habia en la zona stagged. 
+Git push sube 
+Git pull baja

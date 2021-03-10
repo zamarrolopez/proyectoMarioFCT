@@ -1,0 +1,13 @@
+Usuario{
+    nombre,
+    email,
+    pass,
+}
+
+Juego{
+    nombre,
+    genero,
+}
+
+
+  

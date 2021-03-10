@@ -1,0 +1,29 @@
+1º  Instalo express.
+    npm install express -g
+    npm install express-generator -g
+
+2º  Genero la estructura de directorios.
+    express app
+    cd .\app\
+    npm install
+
+3º Modulos añadidos:
+    npm install nodemon -D
+    npm install morgan
+    npm install mongoose
+    npm install mongodb
+
+-g: El paquete se instalará para que pueda ejecutarlo desde su terminal. Modo global en el package y el node_modules.
+-D: Evita que se cree como dependencia.
+
+
+app.js : el principal punto de entrada a su servidor web. Este archivo define el puerto en el que su aplicación escucha las solicitudes, incluye dependencias a través de la función "require" y define las funciones del controlador para diferentes rutas REST a las que pueden acceder sus clientes.
+package.json : define las dependencias internas para su aplicación. Al ejecutar "npm install -d" (que haremos en breve cuando modifiquemos este archivo), se instalarán todas las dependencias enumeradas en el archivo "dependencias".
+rutas : el directorio de rutas contendrá controladores Javascript para rutas REST definidas en app.js. Por ejemplo, si abre index.js, verá el controlador de solicitudes a la ruta "/", que muestra la plantilla de "índice" que reside en "views / index.jade".
+vistas : el directorio de vistas contendrá plantillas definidas en el idioma Jade. Jade es una versión más limpia y legible por humanos de HTML con varias características extraordinariamente útiles, como herencia y parciales. Sus rutas accederán a estas vistas a través de la función "res.render" que vio en las rutas / index.js.
+public : el directorio público se usa generalmente para imágenes, Javascript del lado del cliente y otros activos estáticos. ExpressJS enrutará las solicitudes que correspondan a archivos en el directorio público directamente al archivo. Por ejemplo, si corres
+1
+node app.js
+y apunte su navegador a http: // localhost: 3000 / stylesheets / style.css , verá que Express devolvió el contenido del archivo “public / stylesheets / style.css”.
+
+node_modules : el archivo node_modules contiene el código fuente de las herramientas instaladas a través de npm. Puede sentirse seguro ignorando su contenido por ahora.
