@@ -4,8 +4,9 @@ Modulos Instalados:
     npm install nodemon -D -> https://www.npmjs.com/package/nodemon
     npm install morgan -> https://www.npmjs.com/package/morgan
     npm install --save normalize-port -> https://www.npmjs.com/package/normalize-port
-    npm install mongoose
-    npm install mongodb
+    npm install mongoose -> https://www.npmjs.com/package/mongoose
+    npm install mongodb --save -> https://www.npmjs.com/package/mongodb
+    npm install cors -> https://www.npmjs.com/package/cors
 
 Modulos Sin instalar:
     npm install --save path -> https://www.npmjs.com/package/path

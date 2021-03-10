@@ -1,23 +1,23 @@
+/*
+** Dependencias
+*/
 const express = require('express');
 const morgan = require('morgan');
-const createError = require('http-errors');
 const normalizePort = require('normalize-port');
 const path = require('path');
-
+const createError = require('http-errors');
+//
 const app = express();
 
 //Puerto normalizado
-var port = normalizePort(process.env.PORT || '3000');
-
+const PORT = normalizePort(process.env.PORT || '3000');
 
 
 app.use(morgan('dev'));
 app.use(express.json());
-app.listen(port, () =>{
-  console.log(`Servidor ejecutandosee en puerto ${port}.`);
+app.listen(PORT, () =>{
+  console.log(`Servidor ejecutandosee en puerto ${PORT}.`);
 });
-
-
 
 
 /*
