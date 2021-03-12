@@ -9,6 +9,9 @@ Modulos Instalados:
     npm install cors -> https://www.npmjs.com/package/cors
     npm install body-parser -> https://www.npmjs.com/package/body-parser
 
+Modulos Angular:
+    HttpInterceptor
+
 Modulos Sin instalar:
     npm install --save path -> https://www.npmjs.com/package/path
 

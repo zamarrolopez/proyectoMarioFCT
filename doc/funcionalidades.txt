@@ -1,0 +1,19 @@
+Usuarios:
+	+Login.
+	+Registro.
+	+Auth.
+	+Publicaciones de juegos.
+	+Sistema de Valoraciones.
+	-Listado de juegos.
+		+Ordenados por filtros a decisión del usuario.
+	+Chat para usuarios.
+	
+Administracion:
+	+Gestión de usuarios.
+	+Gestión de juegos.
+	
+	
+	
+	
+	
+	
