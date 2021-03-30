@@ -1,24 +1,22 @@
-Modulos Instalados:
-    npm install http-errors -> https://www.npmjs.com/package/http-errors
-    npm install express -> https://www.npmjs.com/package/express
-    npm install nodemon -D -> https://www.npmjs.com/package/nodemon
-    npm install morgan -> https://www.npmjs.com/package/morgan
-    npm install --save normalize-port -> https://www.npmjs.com/package/normalize-port
-    npm install mongoose -> https://www.npmjs.com/package/mongoose
-    npm install mongodb --save -> https://www.npmjs.com/package/mongodb
-    npm install cors -> https://www.npmjs.com/package/cors
-    npm install body-parser -> https://www.npmjs.com/package/body-parser
+Estructura de carpetas:
+appWeb
+    backend
+    app.js
+        database
+            mongoose.js
+            models
+    
+    frontend
 
-Modulos Angular:
-    HttpInterceptor
+Modulos backend:
+    npm init -y
+    npm install express mongoose
+    npm install -g nodemon
 
-Modulos Sin instalar:
-    npm install --save path -> https://www.npmjs.com/package/path
+Modulos frontend:
+    ng new frontend --directory ./
+    npm install bootstrap-scss
 
-Comandos modulos:
-    npm list    ->Listado de modulos locales.
-    npm list -g ->Listado de modulos globales.
 
-.gitIgnore:
-    /node_modules/
+
 

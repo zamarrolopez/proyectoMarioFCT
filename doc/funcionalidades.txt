@@ -5,9 +5,8 @@ Usuarios:
 	+Publicaciones de juegos.
 	+Sistema de Valoraciones.
 	-Listado de juegos.
-		+Ordenados por filtros a decisión del usuario.
 		+Detalles de los juegos.
-	+Chat para usuarios.
+	+Chat para usuarios.(opcional)
 	
 Administracion:
 	+Gestión de usuarios.

@@ -1,0 +1,17 @@
+/*
+Para importarlas entramos en font google y elegimos las fuentes que deseemos despues selecionamos y copiamos el texto de import y lo pegamos aquii
+*/
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+
+$turquoise: #44ddd0;
+$blue: #276dd7;
+
+html, body {
+  background: linear-gradient(to right top, $turquoise, $blue);
+}
+
+html, body {
+  font-family: 'Calibri';
+  height: 100%;
+}
+

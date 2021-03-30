@@ -1,32 +1,17 @@
-//Dependencias.
 const express = require('express');
-const morgan = require('morgan');
-const bodyParser = require('body-parser');
-const normalizePort = require('normalize-port');
-//const dbConfig = require('./config/database.config');
-
-//Sin usar.
-const cors = require('cors');
-const path = require('path');
-const createError = require('http-errors');
-const mongoose = require('mongoose');
-
-//
-
 const app = express();
+const mongoose = require('./database/mongoose');
 
-//Puerto normalizado
-const PORT = normalizePort(process.env.PORT || '3000');
+const Usuario = require('./database/models/usuario');
 
-app.use(morgan('dev'));
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 
-app.use(cors({
-  origin: 'http://localhost:4200'
-}));
-
-app.listen(PORT, () =>{
-  console.log(`Servidor ejecutandosee en puerto ${PORT}.`);
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET,POST,HEAD,OPTIONS,PUT,PATCH,DEL");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
 });
+
+
+app.listen(3000, ()=> console.log("Servidor conectado en el puerto 3000"));
