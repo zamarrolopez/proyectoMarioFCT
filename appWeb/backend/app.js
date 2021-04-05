@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
-const mongoose = require('./database/mongoose');
-
-const Usuario = require('./database/models/usuario');
 
 app.use(express.json());
+
+//Routes
+app.use('/api/',require('./routes/general.routes'));
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -13,5 +13,6 @@ app.use((req, res, next) => {
     next();
 });
 
-
 app.listen(3000, ()=> console.log("Servidor conectado en el puerto 3000"));
+//Conexion a la BBDD.
+require('./database/mongoose');
