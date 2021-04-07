@@ -4,7 +4,8 @@ const app = express();
 app.use(express.json());
 
 //Routes
-app.use('/api/',require('./routes/general.routes'));
+app.use('/api/',require('./routes/usuario.routes'));
+app.use('/api/',require('./routes/juego.routes'));
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");

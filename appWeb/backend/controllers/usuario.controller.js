@@ -54,4 +54,8 @@ controladorUsuario.editarUsuario = async (req, res) => {
     res.json({status: 'Usuario actualizado.'});
 };
 
+controladorUsuario.deleteUsuario = async (req, res) => {
+    await Usuario.findByIdAndRemove(req.params.id);
+    res.json({status: 'Usuario eliminado.'})
+};
 module.exports = controladorUsuario;
