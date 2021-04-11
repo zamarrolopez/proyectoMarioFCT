@@ -45,7 +45,7 @@ controladorJuego.putJuego = async (req, res) => {
         jugadores:              req.body.jugadores,
         duracion:               req.body.duracion,
         idioma:                 req.body.idioma,
-        lanzamiento:            req.body.lanzamiento,
+        lanzamiento:            req.body.lanzamiento
     }
     await Juego.findByIdAndUpdate(id, {$set:juego}, {new: true, useFindAndModify: false });
     //new true lo crea si no existe

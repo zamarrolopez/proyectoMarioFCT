@@ -5,24 +5,15 @@
   padding: 0;
 }
 
+header{
+  margin-bottom: 5%;
+}
+
 a {
   text-decoration: none;
   color: inherit;
 }
 
-body {
-  font: normal 18px 'Open Sans', sans-serif;
-  background: #fafafa;
-  color: #333;
-}
-
-header {
-  background: #16222A;
-  background: -webkit-linear-gradient(59deg, #3A6073, #16222A);
-  background: linear-gradient(59deg, #3A6073, #16222A);
-  color: white;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
 
 h1{
   font: normal 4em 'Playfair Display SC', serif;

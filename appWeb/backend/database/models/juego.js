@@ -23,9 +23,8 @@ const JuegoSchema = new mongoose.Schema({
         minlength: 2
     },
     jugadores: {
-        type: String,
+        type: Number,
         trim: true,
-        minlength: 2
     },
     duracion: {
         type: String,

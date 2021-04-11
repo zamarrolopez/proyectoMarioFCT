@@ -1,12 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Playfair+Display+SC');
 /*FOOTER*/
 
-footer {
-  font: normal 18px 'Open Sans', sans-serif;
-  background: #16222A;
-  background: -webkit-linear-gradient(59deg, #3A6073, #16222A);
-  background: linear-gradient(59deg, #3A6073, #16222A);
-  color: white;
+footer{
+  margin-top: 5%;
+  height: 100%;
 }
 
 footer a {
@@ -26,7 +23,6 @@ footer a:hover {
 }
 
 .footer-middle {
-  padding-top: 2em;
   color: white;
 }
 

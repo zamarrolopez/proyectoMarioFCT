@@ -1,10 +1,14 @@
+<header>
+  <nav>
+    <a [routerLink]="['/']">INICIO</a>
+    <!--REQUIERE LOGEAR-->
+    <a *ngIf="isAuth" [routerLink]="['/']">JUEGOS</a>
+    <a *ngIf="isAuth" [routerLink]="['/usuario/cuenta']">CUENTA</a>
+    <a *ngIf="isAuth" href (click)="loginOut()">CERRAR SESION</a>
+    <!--SIN LOGEAR-->
+    <a *ngIf="!isAuth" [routerLink]="['/usuario/login']">INICIAR SESION</a>
+    <a *ngIf="!isAuth" [routerLink]="['/usuario/registro']">REGISTRARSE</a>
+  </nav>
+</header>
+<hr>
 
-  <header>
-      <h1>NEXTGAME</h1>
-      <nav>
-          <a href="#">INICIO</a>
-          <a href="#">Second tab</a>
-          <a href="#">Third tab</a>
-          <a href="#">Fourth tab</a>
-      </nav>
-  </header>

@@ -7,7 +7,7 @@
 /**/
 //////////////////////////////////////////////////////////////////////////
 router.post("/juego/post", juego.postJuego);
-router.put("/juego/update/:id", juego.putJuego);
+router.put("/juego/put/:id", juego.putJuego);
 
 router.get("/juego/get", juego.getJuegos);
 router.get("/juego/get/:id", juego.getJuego);

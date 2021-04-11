@@ -4,15 +4,25 @@ Para importarlas entramos en font google y elegimos las fuentes que deseemos des
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
 
 
-$turquoise: #44ddd0;
-$blue: #276dd7;
-
-html, body {
-  background: linear-gradient(to right top, $turquoise, $blue);
+html {
+  background: #16222A;
   font-family: 'Calibri';
   height: 100%;
   //Evita que el gradainte se repita y ocupe toda la pantalla
+}
+
+hr{
+  margin: 0;
+  padding: 0;
+  border-radius: 10px;
+}
+
+body{
   background-attachment:fixed;
+  background: -webkit-linear-gradient(59deg, #16222A,#e50914 ),no-repeat;
+  background: linear-gradient(59deg, #16222A,#e50914 ),no-repeat;
+  color: white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 

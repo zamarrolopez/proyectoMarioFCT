@@ -3,6 +3,7 @@ Usuarios:
 	+Registro.
 	+Auth.
 	+Publicaciones de juegos.
+
 	+Sistema de Valoraciones.
 	-Listado de juegos.
 		+Detalles de los juegos.

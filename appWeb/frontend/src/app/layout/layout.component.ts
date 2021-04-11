@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-layout',
@@ -7,4 +7,4 @@ import { Component, OnInit } from '@angular/core';
     <app-main-content></app-main-content>
     <app-main-footer></app-main-footer>`
 })
-export class LayoutComponent {}
+export class LayoutComponent{}
