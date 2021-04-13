@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 
 //ROUTING
 import { UsuariosRoutingModule } from './usuarios-routing.module';
@@ -19,7 +17,7 @@ import { authInterceptorProviders } from 'src/app/helpers/auth.interceptor';
   imports: [
     UsuariosRoutingModule,
     CommonModule,
-    LayoutModule
+    LayoutModule,
   ],
   providers: [authInterceptorProviders],
 })

@@ -27,17 +27,22 @@ const UsuarioSchema = new mongoose.Schema({
     nombre: {
         type: String,
         trim: true,
-        minlength: 2
+        default: ""
     },
     apellidos: {
         type: String,
         trim: true,
-        minlength: 2
+        default: ""
     },
     tlf: {
         type: Number,
         trim: true,
-        minlength: 9
+        default: 0
+    },
+    numLog:{
+        type: Number,
+        trim: true,
+        default: 0
     },
     roles: {
         type: String,
@@ -46,5 +51,4 @@ const UsuarioSchema = new mongoose.Schema({
       }
 });
 
-const Usuario = mongoose.model('Usuario', UsuarioSchema);
-module.exports = Usuario;
+module.exports = mongoose.model('Usuario', UsuarioSchema);

@@ -2,11 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-cuenta',
-  template: `
-  <app-menu></app-menu>
-  <router-outlet></router-outlet>` ,
-  styles: [
-  ]
+  templateUrl: './cuenta.component.html',
+  styleUrls: ['./cuenta.component.scss']
 })
 export class CuentaComponent implements OnInit {
 

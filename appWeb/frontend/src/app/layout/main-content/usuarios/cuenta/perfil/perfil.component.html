@@ -1,87 +1,77 @@
-<div class="container-fluid" style="padding: 0; height:100%;">
-  <div class="row align-itemss-center">
-    <div class="col-md-3 d-none d-md-block">
-      <div class="container-fluid nav sidebar flex-column">
-        <a [routerLink]="['/']" class="nav-link active mt-auto"><i class="far fa-user-circle"></i> Perfil</a>
-        <a [routerLink]="['/']" class="nav-link"><i class="far fa-bell"></i> Notificaciones</a>
-        <a [routerLink]="['/']" class="nav-link mb-auto"><i class="fas fa-cogs"></i> Seguridad</a>
-      </div>
-    </div>
 
-    <div class="col-md-9" style="height:100%">
-      <div class="container content clear-fix">
-        <h2 class="mt-5 mb-5">Configuración Perfil</h2>
-        <div class="row" style="height:100%">
-          <div class="col-md-3">
-            <div href=# class="d-inline"><img src="https://image.flaticon.com/icons/svg/236/236831.svg" width=130px style="margin:0;"><br><p class="pl-2 mt-2"><a href="#" class="btn" style="color:white;font-weight:600">Editar Foto</a></p></div>
+<h2 class="mt-5 mb-5">Configuración Perfil</h2>
+<div class="row" style="height:100%">
+  <div class="col-md-3">
+    <div href=# class="d-inline"><img src="https://image.flaticon.com/icons/svg/236/236831.svg" width=130px style="margin:0;"><br><p class="pl-2 mt-2"><a href="#" class="btn" style="color:white;font-weight:600">Editar Foto</a></p></div>
+  </div>
+
+  <div class="col-md-9">
+    <div class="container">
+      <form #cuentaForm="ngForm" (ngSubmit)="(cuentaForm)">
+        <!--OCULTOS-->
+        <input type="hidden"
+        name="_id" #_id="ngModel"
+        [(ngModel)]="usuario._id">
+
+        <input type="hidden"
+        name="email" #email="ngModel"
+        [(ngModel)]="usuario.email">
+
+        <input type="hidden"
+        name="pass" #pass="ngModel"
+        [(ngModel)]="usuario.pass">
+
+        <input type="hidden"
+        name="numLog" #numLog="ngModel"
+        [(ngModel)]="usuario.numLog">
+
+        <input type="hidden"
+        name="roles" #roles="ngModel"
+        [(ngModel)]="usuario.roles">
+        <!--OCULTOS-->
+
+        <div class="form-group">
+          <input class="form-control"
+          type="text" name="nombreU"
+          #nombreU="ngModel"
+          [(ngModel)]="usuario.nombreU"
+          placeholder="Nombre de usuario">
+        </div>
+        <div class="form-group">
+          <label for=Nombre>Nombre</label>
+          <input class="form-control"
+          type="text" name="nombre"
+          #nombre="ngModel"
+          [(ngModel)]="usuario.nombre"
+          placeholder="Nombre">
+        </div>
+        <div class="form-group">
+            <label for=Apellidos>Apellidos</label>
+            <input class="form-control"
+            type="text" name="apellidos"
+            #apellidos="ngModel"
+            [(ngModel)]="usuario.apellidos"
+            placeholder="Apellidos">
+        </div>
+        <div class="form-group ">
+            <label for=tlf>Telefono</label>
+            <input class="form-control"
+            type="text" name="tlf"
+            #tlf="ngModel"
+            [(ngModel)]="usuario.tlf"
+            placeholder="Numero de telefono">
+        </div>
+        <div class="row mt-5">
+          <div class="col">
+            <button type="button" class="btn btn-primary btn-block" (click)="editarCuenta(cuentaForm)">Guardar cambios</button>
           </div>
-
-
-
-          <div class="col-md-9">
-            <div class="container">
-              <form #cuentaForm="ngForm" (ngSubmit)="(cuentaForm)">
-
-                <!--OCULTOS-->
-                <input type="hidden"
-                name="_id" #_id="ngModel"
-                [(ngModel)]="usuario._id">
-                <input type="hidden"
-                name="email" #email="ngModel"
-                [(ngModel)]="usuario.email">
-                <input type="hidden"
-                name="pass" #pass="ngModel"
-                [(ngModel)]="usuario.pass">
-                <input type="hidden"
-                name="roles" #roles="ngModel"
-                [(ngModel)]="usuario.roles">
-                <!--OCULTOS-->
-
-                <div class="form-group">
-                  <input class="form-control"
-                  type="text" name="nombreU"
-                  #nombreU="ngModel"
-                  [(ngModel)]="usuario.nombreU"
-                  placeholder="Nombre de usuario">
-                </div>
-                <div class="form-group">
-                  <label for=Nombre>Nombre</label>
-                  <input class="form-control"
-                  type="text" name="nombre"
-                  #nombre="ngModel"
-                  [(ngModel)]="usuario.nombre"
-                  placeholder="Nombre">
-                </div>
-                <div class="form-group">
-                    <label for=Apellidos>Apellidos</label>
-                    <input class="form-control"
-                    type="text" name="apellidos"
-                    #apellidos="ngModel"
-                    [(ngModel)]="usuario.apellidos"
-                    placeholder="Apellidos">
-                </div>
-                <div class="form-group ">
-                    <label for=tlf>Telefono</label>
-                    <input class="form-control"
-                    type="text" name="tlf"
-                    #tlf="ngModel"
-                    [(ngModel)]="usuario.tlf"
-                    placeholder="Numero de telefono">
-                </div>
-                <div class="row mt-5">
-                  <div class="col">
-                    <button type="button" class="btn btn-primary btn-block" (click)="editarCuenta(cuentaForm)">Guardar cambios</button>
-                  </div>
-                  <div class="col">
-                    <button type="button" class="btn btn-default btn-block">Cancelar</button>
-                  </div>
-                </div>
-              </form>
-            </div>
+          <div class="col">
+            <button type="button" class="btn btn-default btn-block">Cancelar</button>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 </div>
+
 

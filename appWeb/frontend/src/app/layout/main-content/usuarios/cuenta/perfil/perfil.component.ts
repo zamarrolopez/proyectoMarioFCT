@@ -22,6 +22,7 @@ export class PerfilComponent implements OnInit {
     if(form.value){
       this.authService.editar(this.usuario._id, form.value).subscribe(res =>{
         alert("Cambios guardados con exito!");
+        this.authService.saveUser(this.usuario);
         window.location.reload();
       })
     }

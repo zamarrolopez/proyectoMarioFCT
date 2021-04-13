@@ -1,0 +1,30 @@
+.container{
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+
+//Menu Lateral---------------
+.sidebar {
+  height: 100% !important;
+  bottom: 0;
+  font-size: 1.3rem;
+  background: black;
+  float: left;
+}
+
+@media screen and (max-width:940px){
+  .sidebar{
+    height: 100% !important;
+    font-size: 1rem;
+    padding-left :0px;
+  }
+}
+
+.sidebar .nav-link{
+  margin-bottom: 20px;
+  color:#dddce5;
+}
+.nav-link.active{
+  color:#fff;
+}

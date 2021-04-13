@@ -6,7 +6,7 @@ export class Usuario {
         _id = "", nombreU = "",
         pass="", email="" ,
         nombre="", apellidos="",
-        tlf=0, roles=""
+        tlf=0, numLog=0, roles=""
     ){
         this._id        = _id;
         this.nombreU    = nombreU;
@@ -15,6 +15,7 @@ export class Usuario {
         this.nombre     = nombre;
         this.apellidos  = apellidos;
         this.tlf        = tlf;
+        this.numLog     = numLog;
         this.roles      = roles;
     }
 
@@ -25,5 +26,6 @@ export class Usuario {
     nombre:     string;
     apellidos:  string;
     tlf:        number;
+    numLog:     number;
     roles:      string;
 }
