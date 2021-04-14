@@ -1,72 +1,32 @@
-const Usuario = require("../database/models/usuario");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-const secret_key = "mle-secret-key";
+//Modelo
+const Usuario = require("../database/models/usuario.model");
+//Controlador
 const controladorUsuario = {};
 
-controladorUsuario.registro = (req, res) => {
-    const usuario = new Usuario({
-        nombreU:    req.body.nombreU,
-        pass:       bcrypt.hashSync(req.body.pass, 8),
-        email:      req.body.email
-    });
-    usuario.save((err, usuario) => {
+//GENERALES
+controladorUsuario.getUsuarios = async (req, res) =>{
+    await Usuario.find((err, usuarios)=>{
         if (err) {return res.status(500).send({ message: err });}
-        if (req.body.roles) {
-            usuario.roles = req.body.roles;
-            usuario.save(err => {
-                if (err) {
-                    res.status(500).send({ message: err });
-                    return;
-                }
-                res.send({ message: "Usuario registrado correctamente!" });
-            });
-        }else{
-            usuario.save((err) => {
-                if (err) {return res.status(500).send({ message: err });}
-                res.send({ message: "Usuario registrado correctamente!" });
-            });
-        }
+        if (!usuarios) {return res.status(404).send({ message: "Usuarios no encontrados." });}
+        res.json({status: 'Usuarios encontrados.',usuarios});
     });
 };
+controladorUsuario.deleteUsuarios = async (req, res) => {
+    await Usuario.deleteMany();
+    res.json({status: 'Todos los usuarios han sido eliminados.'})
+};
 
-controladorUsuario.login = async (req, res) => {
-    await Usuario.findOne({nombreU: req.body.nombreU}, async (err, usuario) => {
+//ESPECIFICAS-------------------
+controladorUsuario.getUsuario = async (req, res) =>{
+    await Usuario.findById(req.params.id ,(err, usuario) =>{
         if (err) {return res.status(500).send({ message: err });}
-        if (!usuario) {return res.status(404).send({ message: "Usuario no encontrado." });}
-        //Comparo las contraseñas.
-        var passValida = bcrypt.compareSync(
-            req.body.pass,
-            usuario.pass
-            );
-        if (!passValida) {return res.status(401).send({accessToken: null,message: "Contraseña Incorrecta!"});}
-        //Genero el tokken.
-        var token = jwt.sign({ _id: usuario.id }, secret_key, {expiresIn: 3600}); // 1 hora
-
-        usuario.numLog = usuario.numLog + 1;
-        await Usuario.findByIdAndUpdate(usuario.id, {$set:usuario}, {new: true, useFindAndModify: false });
-        //Envio la respuesta.
-        res.status(200).send({
-            _id:            usuario.id,
-            nombreU:        usuario.nombreU,
-            pass:           usuario.pass,
-            email:          usuario.email,
-            nombre:         usuario.nombre,
-            apellidos:      usuario.apellidos,
-            tlf:            usuario.tlf,
-            numLog:         usuario.numLog,
-            roles:          usuario.roles,
-            accessToken:    token
-        });
+        if (!usuario) {return res.status(404).send({ message: "Usuario no encontrados." });}
+        res.json(usuario);
     });
+    
 };
 
-controladorUsuario.getUsuarios = async (req,res) =>{
-    const usuario = await Usuario.find()
-    res.json(usuario);
-};
-
-controladorUsuario.editarUsuario = async (req, res) => {
+controladorUsuario.putUsuario = async (req, res) => {
     const usuario = {
         nombreU:        req.body.nombreU,
         pass:           req.body.pass,
@@ -77,13 +37,44 @@ controladorUsuario.editarUsuario = async (req, res) => {
         numLog:         req.body.numLog,
         roles:          req.body.roles
     }
-    await Usuario.findByIdAndUpdate(req.params.id, {$set:usuario}, {new: true, useFindAndModify: false });
-    //new true lo crea si no existe
-    res.json({status: 'Usuario actualizado.'});
+    await Usuario.findByIdAndUpdate(req.params.id, {$set:usuario}, {new: true, useFindAndModify: false }, (err, usuario) =>{
+        if (err) {return res.status(500).send({ message: err });}
+        if (!usuario) {return res.status(404).send({ message: "Usuario no encontrados." });}
+        res.json({status: 'Usuario actualizado.'});
+    });
+};
+
+controladorUsuario.putEmail = async (req, res) => {
+    await Usuario.findByIdAndUpdate({_id:req.params.id}, {$set: {email: req.body.email}}, {new: true, useFindAndModify: false },(err, usuario) =>{
+        if (err) {return res.status(500).send({ message: err });}
+        if (!usuario) {return res.status(404).send({ message: "Usuario no encontrados." });}
+        res.json({status: 'Email actualizado.'});
+    });
+
+    
+};
+
+controladorUsuario.putPass = async (req, res) => {
+    await Usuario.findByIdAndUpdate({_id:req.params.id}, {$set: {pass: req.body.pass}}, {new: true, useFindAndModify: false },(err, usuario)=>{
+        if (err) {return res.status(500).send({ message: err });}
+        if (!usuario) {return res.status(404).send({ message: "Usuario no encontrados." });}
+        res.json({status: 'Contraseña actualizada.'});
+    });
+};
+
+controladorUsuario.putRol = async (req, res) => {
+    await Usuario.findByIdAndUpdate({_id:req.params.id}, {$set: {roles: req.body.roles}}, {new: true, useFindAndModify: false },(err, usuario)=>{
+        if (err) {return res.status(500).send({ message: err });}
+        if (!usuario) {return res.status(404).send({ message: "Usuario no encontrados." });}
+        res.json({status: 'Contraseña actualizada.'});
+    });
 };
 
 controladorUsuario.deleteUsuario = async (req, res) => {
-    await Usuario.findByIdAndRemove(req.params.id);
-    res.json({status: 'Usuario eliminado.'})
+    await Usuario.findByIdAndRemove(req.params.id, (err, usuario)=>{
+        if (err) {return res.status(500).send({ message: err });}
+        if (!usuario) {return res.status(404).send({ message: "Usuario no encontrados." });}
+        res.json({status: 'Usuario eliminado.'})
+    });
 };
 module.exports = controladorUsuario;

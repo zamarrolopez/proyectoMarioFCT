@@ -1,0 +1,64 @@
+
+.container{
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+h2{
+  font-weight: bolder;
+  color: white;
+}
+
+form{
+  width:400px;
+}
+
+form *{
+  font-weight: bold;
+}
+
+form label{
+  font-size: 18px;
+  color: white;
+}
+
+form .form-control,form .form-control:focus{
+  border-color:transparent;
+  border-bottom-color: #bebcc1;
+  box-shadow:none;
+}
+
+form .btn{
+  border-radius: 0px;
+  border-color: transparent;
+}
+
+.btn.btn-default{
+  background: #ebebeb;
+  color:#8f9096;
+}
+
+.btn.btn-primary{
+  color:white;
+}
+
+//Contenido
+.content {
+  height: 100% !important;
+  bottom: 0;
+  font-size: 1rem;
+}
+
+@media screen and (max-width:768px){
+  .content{
+      width: 100%;
+      height: 100%;
+      padding-top: 200px;
+  }
+
+  form{
+      width: 100%;
+      margin:auto;
+  }
+
+}

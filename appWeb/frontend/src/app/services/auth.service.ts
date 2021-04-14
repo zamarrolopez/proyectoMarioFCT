@@ -27,8 +27,17 @@ export class AuthService {
     return this.http.post(AUTH_API + 'registro', {nombreU,email,pass}, httpOptions);
   }
 
+  //Perfil y seguridad
   editar(id:string, usuario:Usuario){
     return this.http.put(AUTH_API + `put/${id}`, usuario);
+  }
+
+  putPass(){
+
+  }
+
+  putEmail(id:string, email:string){
+    return this.http.put(AUTH_API + `email/put/${id}`, {email});
   }
 
 

@@ -10,12 +10,13 @@ import { AdminComponent } from './admin/admin.component';
 
 import { LayoutModule } from 'src/app/layout/layout.module';
 import { JuegosComponent } from 'src/app/shared-component/juegos/juegos.component';
+import { SeguridadComponent } from './seguridad/seguridad.component';
 
 
 
 
 @NgModule({
-  declarations: [CuentaComponent, MenuComponent, PerfilComponent, AdminComponent, JuegosComponent],
+  declarations: [CuentaComponent, MenuComponent, PerfilComponent, AdminComponent, JuegosComponent, SeguridadComponent],
   imports: [
     CuentaRoutingModule,
     CommonModule,

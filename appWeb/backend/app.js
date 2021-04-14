@@ -14,11 +14,13 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(bodyParserJSON);
 app.use(bodyParserURLEncoded);
+
 app.use(cors({origin: 'http://localhost:4200'}));
 
 //Routes
-app.use('/api/',require('./routes/usuario.routes'));
-app.use('/api/',require('./routes/juego.routes'));
+app.use('/api/auth/',require('./routes/auth.routes'));
+app.use('/api/usuario/',require('./routes/usuario.routes'));
+app.use('/api/juego/',require('./routes/juego.routes'));
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");

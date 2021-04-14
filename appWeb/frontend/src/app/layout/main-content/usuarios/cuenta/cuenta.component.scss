@@ -3,12 +3,22 @@
   margin-bottom: 5%;
 }
 
+p{
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-size: x-large;
+  font-weight: bold;
+}
+
 
 //Menu Lateral---------------
 .sidebar {
   height: 100% !important;
   bottom: 0;
-  font-size: 1.3rem;
+  font-size: 1rem;
   background: black;
   float: left;
 }
@@ -28,3 +38,5 @@
 .nav-link.active{
   color:#fff;
 }
+
+

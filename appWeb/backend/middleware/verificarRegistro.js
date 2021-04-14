@@ -1,4 +1,4 @@
-const Usuario = require("../database/models/usuario");
+const Usuario = require("../database/models/usuario.model");
 const ROLES = ["usuario", "admin", "moderador"];
 
 const verificarRegistro = {};
