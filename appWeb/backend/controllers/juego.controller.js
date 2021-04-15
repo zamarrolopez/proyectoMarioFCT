@@ -1,6 +1,6 @@
-//Modelo
+//MODELO
 const Juego = require("../database/models/juego.model");
-//Controlador
+//CONTROLE
 const controladorJuego = {};
 
 //GENERALES
@@ -8,7 +8,7 @@ controladorJuego.getJuegos = async (req,res) =>{
     await Juego.find((err, juegos) =>{
         if (err) {return res.status(500).send({ message: err });}
         if (!juegos) {return res.status(404).send({ message: "Juegos no encontrados." });}
-        res.json({status: 'Juegos encontrados.',juegos});
+        res.json(juegos);
     }); 
 };
 

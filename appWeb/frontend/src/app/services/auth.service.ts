@@ -6,7 +6,7 @@ import { Usuario } from 'src/app/models/usuario.models';
 
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
-const AUTH_API = 'http://localhost:3000/api/usuario/';
+const AUTH_API = 'http://localhost:3000/api/auth/';
 const httpOptions = {headers: new HttpHeaders({ 'Content-Type': 'application/json' })};
 
 @Injectable({providedIn: 'root'})
@@ -20,26 +20,9 @@ export class AuthService {
 
   //LOGIN Y REGISTRO
   login(nombreU: string, pass: string): Observable<any> {
-    return this.http.post(AUTH_API + 'login', {nombreU,pass}, httpOptions);
-  }
-
+    return this.http.post(AUTH_API + 'login', {nombreU,pass}, httpOptions);}
   registro(nombreU: string, email: string, pass: string): Observable<any> {
-    return this.http.post(AUTH_API + 'registro', {nombreU,email,pass}, httpOptions);
-  }
-
-  //Perfil y seguridad
-  editar(id:string, usuario:Usuario){
-    return this.http.put(AUTH_API + `put/${id}`, usuario);
-  }
-
-  putPass(){
-
-  }
-
-  putEmail(id:string, email:string){
-    return this.http.put(AUTH_API + `email/put/${id}`, {email});
-  }
-
+    return this.http.post(AUTH_API + 'registro', {nombreU,email,pass}, httpOptions);}
 
   //STORAGE AUTENTIFICACION----------
   public signOut(): void {
@@ -62,9 +45,7 @@ export class AuthService {
 
   public getUser(): any {
     const usuario = window.sessionStorage.getItem(USER_KEY);
-    if (usuario) {
-      return JSON.parse(usuario);
-    }
+    if (usuario) {return JSON.parse(usuario);}
     return {};
   }
 

@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Juego } from 'src/app/models/juego.models';
-import { JuegosService } from "src/app/services/juegos.service";
+import { JuegosService } from 'src/app/services/juegos.service';
 
 @Component({
-  selector: 'app-juegos',
-  templateUrl: './juegos.component.html',
-  styleUrls: ['./juegos.component.scss']
+  selector: 'app-lista-crear-juego',
+  templateUrl: './lista-crear-juego.component.html',
+  styleUrls: ['./lista-crear-juego.component.scss']
 })
-
-export class JuegosComponent implements OnInit {
+export class ListaCrearJuegoComponent implements OnInit {
   juegos!: Juego[];
   constructor(public juegosService: JuegosService) { }
 
@@ -37,8 +36,7 @@ export class JuegosComponent implements OnInit {
   }
 
   mostrarJuegos(){
-    this.juegosService.getJuegos()
-    .subscribe(res =>{
+    this.juegosService.getJuegos().subscribe(res =>{
       this.juegosService.setJuegos(res as Juego[]);
     });
   }
@@ -62,8 +60,4 @@ export class JuegosComponent implements OnInit {
       this.juegosService.juegoSeleccionado = new Juego();
     }
   }
-
-
-
-
 }

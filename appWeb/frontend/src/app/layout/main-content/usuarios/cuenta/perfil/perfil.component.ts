@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 
 import { Usuario } from "src/app/models/usuario.models";
 import { AuthService } from "src/app/services/auth.service";
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-perfil',
@@ -12,19 +13,19 @@ import { AuthService } from "src/app/services/auth.service";
 export class PerfilComponent implements OnInit {
 
   usuario!:Usuario;
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService, public usuariosService: UsuariosService) {}
 
   ngOnInit(): void {
     this.usuario = this.authService.getUser();
   }
 
-  editarCuenta(form: NgForm){
+  putPerfil(form: NgForm){
     if(form.value){
-      this.authService.editar(this.usuario._id, form.value).subscribe(res =>{
+      this.usuariosService.putOne(this.usuario._id, form.value).subscribe(res =>{
         alert("Cambios guardados con exito!");
         this.authService.saveUser(this.usuario);
         window.location.reload();
-      })
+      });
     }
   }
 }

@@ -20,4 +20,4 @@ Modulos frontend:
 
 
 ng g m dashboard --routing
-ng g c dashboard/dashboard --flat --inlineTemplate --inlineStyle
+ng g c juegos/juegos --flat --inlineTemplate --inlineStyle

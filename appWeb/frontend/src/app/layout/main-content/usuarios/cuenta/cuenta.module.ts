@@ -9,14 +9,14 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { AdminComponent } from './admin/admin.component';
 
 import { LayoutModule } from 'src/app/layout/layout.module';
-import { JuegosComponent } from 'src/app/shared-component/juegos/juegos.component';
 import { SeguridadComponent } from './seguridad/seguridad.component';
+import { ListaCrearJuegoComponent } from 'src/app/shared-component/lista-crear-juego/lista-crear-juego.component';
 
 
 
 
 @NgModule({
-  declarations: [CuentaComponent, MenuComponent, PerfilComponent, AdminComponent, JuegosComponent, SeguridadComponent],
+  declarations: [CuentaComponent, MenuComponent, PerfilComponent, AdminComponent, ListaCrearJuegoComponent, SeguridadComponent],
   imports: [
     CuentaRoutingModule,
     CommonModule,

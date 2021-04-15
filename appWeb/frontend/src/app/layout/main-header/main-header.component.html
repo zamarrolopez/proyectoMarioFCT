@@ -2,7 +2,7 @@
   <nav>
     <a [routerLink]="['/']">INICIO</a>
     <!--REQUIERE LOGEAR-->
-    <a *ngIf="isAuth" [routerLink]="['/']">JUEGOS</a>
+    <a *ngIf="isAuth" [routerLink]="['/juegos/principal']">JUEGOS</a>
     <a *ngIf="isAuth" [routerLink]="['/usuario/cuenta']">CUENTA</a>
     <a *ngIf="isAuth" href (click)="loginOut()">CERRAR SESION</a>
     <!--SIN LOGEAR-->

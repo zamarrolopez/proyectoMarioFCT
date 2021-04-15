@@ -1,4 +1,6 @@
-//Modelo
+//CONSTANTE
+const bcrypt = require("bcryptjs");
+//MODELO
 const Usuario = require("../database/models/usuario.model");
 //Controlador
 const controladorUsuario = {};
@@ -8,7 +10,7 @@ controladorUsuario.getUsuarios = async (req, res) =>{
     await Usuario.find((err, usuarios)=>{
         if (err) {return res.status(500).send({ message: err });}
         if (!usuarios) {return res.status(404).send({ message: "Usuarios no encontrados." });}
-        res.json({status: 'Usuarios encontrados.',usuarios});
+        res.json(usuarios);
     });
 };
 controladorUsuario.deleteUsuarios = async (req, res) => {
@@ -29,7 +31,7 @@ controladorUsuario.getUsuario = async (req, res) =>{
 controladorUsuario.putUsuario = async (req, res) => {
     const usuario = {
         nombreU:        req.body.nombreU,
-        pass:           req.body.pass,
+        pass:           bcrypt.hashSync(req.body.pass, 8),
         email:          req.body.email,
         nombre:         req.body.nombre,
         apellidos:      req.body.apellidos,
@@ -55,7 +57,7 @@ controladorUsuario.putEmail = async (req, res) => {
 };
 
 controladorUsuario.putPass = async (req, res) => {
-    await Usuario.findByIdAndUpdate({_id:req.params.id}, {$set: {pass: req.body.pass}}, {new: true, useFindAndModify: false },(err, usuario)=>{
+    await Usuario.findByIdAndUpdate({_id:req.params.id}, {$set: {pass: bcrypt.hashSync(req.body.pass, 8)}}, {new: true, useFindAndModify: false },(err, usuario)=>{
         if (err) {return res.status(500).send({ message: err });}
         if (!usuario) {return res.status(404).send({ message: "Usuario no encontrados." });}
         res.json({status: 'Contraseña actualizada.'});
@@ -66,7 +68,7 @@ controladorUsuario.putRol = async (req, res) => {
     await Usuario.findByIdAndUpdate({_id:req.params.id}, {$set: {roles: req.body.roles}}, {new: true, useFindAndModify: false },(err, usuario)=>{
         if (err) {return res.status(500).send({ message: err });}
         if (!usuario) {return res.status(404).send({ message: "Usuario no encontrados." });}
-        res.json({status: 'Contraseña actualizada.'});
+        res.json({status: 'Rol actualizado.'});
     });
 };
 

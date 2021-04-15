@@ -1,10 +1,10 @@
-//Constantes
+//CONSTANTE
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const secret_key = "mle-secret-key";
-//Modelo
+//MODELO
 const Usuario = require("../database/models/usuario.model");
-//Controlador
+//CONTROLADOR
 const controladorAuth = {};
 
 controladorAuth.registro = async (req, res) => {
@@ -39,7 +39,7 @@ controladorAuth.login = async (req, res) => {
       if (!usuario) {return res.status(404).send({ message: "Usuario no encontrado." });}
       //Comparo las contraseñas.
       var passValida = bcrypt.compareSync( req.body.pass, usuario.pass);
-      if (!passValida) {return res.status(401).send({accessToken: null,message: "Contraseña Incorrecta!"});}
+      if (!passValida) {return res.status(401).send({accessToken: null,message: "Contraseña Incorrecta!: "});}
       //Genero el tokken.
       var token = jwt.sign({ _id: usuario.id }, secret_key, {expiresIn: 3600}); // 1 hora
       //Aumento el contador de logeos del usuario.

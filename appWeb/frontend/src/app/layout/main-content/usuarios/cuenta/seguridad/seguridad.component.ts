@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Usuario } from 'src/app/models/usuario.models';
 import { AuthService } from 'src/app/services/auth.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-seguridad',
@@ -9,18 +11,36 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class SeguridadComponent implements OnInit {
   usuario!:Usuario;
-  constructor(public authService: AuthService) {}
+  error = "";
+  constructor(public authService: AuthService, public usuariosService: UsuariosService) {}
 
   ngOnInit(): void {
     this.usuario = this.authService.getUser();
   }
 
   putEmail(email:string){
-    this.authService.putEmail(this.usuario._id, email).subscribe(res =>{
+    this.usuariosService.putEmail(this.usuario._id, email).subscribe(res =>{
       alert("Correo cambiado correctamente");
       this.usuario.email = email;
       this.authService.saveUser(this.usuario);
     })
   }
+
+  putPass(form:NgForm){
+    if(form.value.oldPass != this.usuario.pass){
+      this.error="Datos incorrectos";
+    }else{
+      if(form.value.newPass != form.value.newPass2){
+        this.error="Datos incorrectos";
+      }else{
+        this.usuariosService.putPass(this.usuario._id, form.value.newPass).subscribe(res =>{
+          alert("Contraseña cambiada correctamente");
+          this.usuario.pass = form.value.newPass;
+          this.authService.saveUser(this.usuario);
+        });
+      }
+    }
+  }
+
 
 }
