@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
+
 const jwt = require("jsonwebtoken");
 const app = express();
 
@@ -16,7 +17,7 @@ app.use(bodyParserJSON);
 app.use(bodyParserURLEncoded);
 
 app.use(cors({origin: 'http://localhost:4200'}));
-
+app.use('/public', express.static(`${__dirname}/database/images`))
 //Routes
 app.use('/api/auth/',require('./routes/auth.routes'));
 app.use('/api/usuario/',require('./routes/usuario.routes'));

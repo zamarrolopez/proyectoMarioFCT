@@ -5,6 +5,7 @@ const Roles = Object.freeze({
     Mod: 'moderador',
     Usuario: 'usuario'
 });
+
 const UsuarioSchema = new mongoose.Schema({
     nombreU: {
         type: String,

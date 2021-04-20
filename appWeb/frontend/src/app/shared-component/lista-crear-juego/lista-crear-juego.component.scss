@@ -1,15 +1,13 @@
-.products{
-  .name{
-    border-bottom: 1px dotted #ccc;
-    cursor: pointer;
-  }
-}
-
-.table{
+table{
   background-color: #ccc;
   margin-bottom: 25px;
-  margin-right: 20px;
   font-size: small;
+  max-width: max-content;
+}
+
+td, tr{
+  margin: 0;
+  padding: 5px;
 }
 
 .fas fa-trash-alt{
@@ -18,4 +16,8 @@
 
 button{
   font-size: 10px;
+}
+
+.upload {
+  cursor: pointer;
 }

@@ -7,7 +7,8 @@ export class Juego {
         desarrollador="", editor="" ,
         genero="", jugadores=0,
         duracion="", idioma="",
-        lanzamiento=""
+        lanzamiento="", imageUrl="",
+        imageTitle="", imageDesc=""
     ){
         this._id            = _id;
         this.nombre         = nombre;
@@ -18,6 +19,9 @@ export class Juego {
         this.duracion       = duracion;
         this.idioma         = idioma;
         this.lanzamiento    = lanzamiento;
+        this.imageUrl       = imageUrl;
+        this.imageTitle     = imageTitle;
+        this.imageDesc      = imageDesc;
     }
 
     _id:            string;
@@ -29,4 +33,7 @@ export class Juego {
     duracion:       string;
     idioma:         string;
     lanzamiento:    string;
+    imageUrl:       string;
+    imageTitle:     string;
+    imageDesc:      string;
 }

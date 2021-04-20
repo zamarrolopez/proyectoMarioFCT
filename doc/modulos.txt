@@ -12,7 +12,7 @@ Modulos backend:
     npm init -y
     npm install express mongoose
     npm install -g nodemon
-
+    npm install --save multer 
 Modulos frontend:
     ng new frontend --directory ./
     npm install bootstrap-scss

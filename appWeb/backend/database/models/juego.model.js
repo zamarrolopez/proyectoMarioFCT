@@ -40,8 +40,17 @@ const JuegoSchema = new mongoose.Schema({
         type: String,
         trim: true,
         minlength: 2
+    },
+    imgUrl:{
+        type: String
     }
+},{
+    timestamps: true
 });
 
-const Juego = mongoose.model('Juego', JuegoSchema);
-module.exports = Juego;
+JuegoSchema.methods.setImgUrl = function setImgUrl(filename){
+    
+    this.imgUrl = `http:localhost:3000/public/${filename}`
+}
+
+module.exports = mongoose.model('Juego', JuegoSchema);

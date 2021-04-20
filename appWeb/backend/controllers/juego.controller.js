@@ -35,16 +35,20 @@ controladorJuego.postJuego = async (req, res) => {
         jugadores:              req.body.jugadores,
         duracion:               req.body.duracion,
         idioma:                 req.body.idioma,
-        lanzamiento:            req.body.lanzamiento,
+        lanzamiento:            req.body.lanzamiento
     });
+    if(req.file){
+        const { filename } = req.file
+        juego.setImgUrl(filename);
+    }
     await juego.save((err,juego)=>{
         if (err) {return res.status(500).send({ message: "Error: "+err });}
-        res.json({status: 'Juego añadido.', juego});
+        res.json({status: 'Juego añadido.',post: juego});
     });
 };
 
 controladorJuego.putJuego = async (req, res) => {
-    const juego = {
+    const juego = new Juego({
         nombre:                 req.body.nombre,
         desarrollador:          req.body.desarrollador,
         editor:                 req.body.editor,
@@ -52,7 +56,11 @@ controladorJuego.putJuego = async (req, res) => {
         jugadores:              req.body.jugadores,
         duracion:               req.body.duracion,
         idioma:                 req.body.idioma,
-        lanzamiento:            req.body.lanzamiento
+        lanzamiento:            req.body.lanzamiento,
+    });
+    if(req.file){
+        const { filename } = req.file
+        juego.setImgUrl(filename);
     }
     await Juego.findByIdAndUpdate(req.params.id, {$set:juego}, {new: true, useFindAndModify: false }, (err, usuario) =>{
         if (err) {return res.status(500).send({ message: err });}

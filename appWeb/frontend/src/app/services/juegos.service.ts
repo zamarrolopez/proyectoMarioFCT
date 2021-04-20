@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
+
 //MODELS
 import { Juego } from "src/app/models/juego.models";
 //CONSTANTES
@@ -20,6 +21,10 @@ export class JuegosService {
     this.juegos$ = new Subject();
   }
 
+  uploadFile(formData:any){return this.http.post(URL + `imagen`, formData);}
+
+
+
   setJuegos(juego:Juego[]){
     this.juegos = juego;
     this.juegos$.next(this.juegos);
@@ -31,5 +36,6 @@ export class JuegosService {
   postJuego(juego: Juego){return this.http.post(URL + `post`, juego);}
   putJuego(juego: Juego){return this.http.put(URL + `put/${juego._id}`, juego);}
   deleteJuego(_id: string){return this.http.delete(URL + `delete/${_id}`);}
+
 
 }

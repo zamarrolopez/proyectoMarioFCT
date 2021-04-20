@@ -4,9 +4,11 @@ Usuarios:
 	+Auth.
 	+Publicaciones de juegos.
 
+	+Imagenes de personas y juegos.
 	+Sistema de Valoraciones.
 	-Listado de juegos.
 		+Detalles de los juegos.
+
 	+Chat para usuarios.(opcional)
 	
 Administracion:

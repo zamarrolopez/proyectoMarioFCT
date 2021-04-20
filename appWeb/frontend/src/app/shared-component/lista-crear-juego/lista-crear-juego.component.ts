@@ -3,13 +3,16 @@ import { NgForm } from '@angular/forms';
 import { Juego } from 'src/app/models/juego.models';
 import { JuegosService } from 'src/app/services/juegos.service';
 
+
 @Component({
   selector: 'app-lista-crear-juego',
   templateUrl: './lista-crear-juego.component.html',
   styleUrls: ['./lista-crear-juego.component.scss']
 })
 export class ListaCrearJuegoComponent implements OnInit {
+
   juegos!: Juego[];
+  uploadedFiles!: Array<File>;
   constructor(public juegosService: JuegosService) { }
 
   ngOnInit(): void {
@@ -20,6 +23,7 @@ export class ListaCrearJuegoComponent implements OnInit {
   }
 
   agregarJuego(form: NgForm){
+    console.log(form.value.img);
     if(form.value._id){
       this.juegosService.putJuego(form.value)
         .subscribe(res => {
@@ -60,4 +64,22 @@ export class ListaCrearJuegoComponent implements OnInit {
       this.juegosService.juegoSeleccionado = new Juego();
     }
   }
+
+
+  fileChange(element:any) {
+    this.uploadedFiles = element.target.files;
+  }
+
+  upload() {
+    let formData = new FormData();
+    for (var i = 0; i < this.uploadedFiles.length; i++) {
+      formData.append("uploads[]", this.uploadedFiles[i], this.uploadedFiles[i].name);
+    }
+    this.juegosService.uploadFile(formData).subscribe((res)=> {
+      console.log('response received is ', res);
+    });
+  }
+
+
+
 }
