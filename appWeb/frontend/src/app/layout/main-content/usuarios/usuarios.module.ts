@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { RegistroComponent } from './registro/registro.component';
 //Interceptro
 import { authInterceptorProviders } from 'src/app/helpers/auth.interceptor';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -18,6 +19,8 @@ import { authInterceptorProviders } from 'src/app/helpers/auth.interceptor';
     UsuariosRoutingModule,
     CommonModule,
     LayoutModule,
+    ReactiveFormsModule
+
   ],
   providers: [authInterceptorProviders],
 })

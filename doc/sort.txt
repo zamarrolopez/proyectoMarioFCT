@@ -1,0 +1,19 @@
+Post.find({}).sort('field').exec(function(err, docs) { ... });
+Post.find({}).sort({ field: 'asc' }).exec(function(err, docs) { ... });
+Post.find({}).sort({ field: 'ascending' }).exec(function(err, docs) { ... });
+Post.find({}).sort({ field: 1 }).exec(function(err, docs) { ... });
+
+Post.find({}, null, {sort: { field : 'asc' }}), function(err, docs) { ... });
+Post.find({}, null, {sort: { field : 'ascending' }}), function(err, docs) { ... });
+Post.find({}, null, {sort: { field : 1 }}), function(err, docs) { ... });
+sort by descending order
+
+Post.find({}).sort('-field').exec(function(err, docs) { ... });
+Post.find({}).sort({ field: 'desc' }).exec(function(err, docs) { ... });
+Post.find({}).sort({ field: 'descending' }).exec(function(err, docs) { ... });
+Post.find({}).sort({ field: -1 }).exec(function(err, docs) { ... });
+
+
+Post.find({}, null, {sort: { field : 'desc' }}), function(err, docs) { ... });
+Post.find({}, null, {sort: { field : 'descending' }}), function(err, docs) { ... });
+Post.find({}, null, {sort: { field : -1 }}), function(err, docs) { ... })

@@ -1,7 +1,48 @@
 <div class="products" ng-app="app" ng-controller="AppCtrl">
+<table class="table-responsive table-striped table-bordered table-hover table-checkable order-column dataTable">
+  <thead><tr>
+    <th>Imagen</th>
+    <th>ID</th>
+    <th>Nombre</th>
+    <th>Desarrollador</th>
+    <th>Editor</th>
+    <th>Genero</th>
+    <th>Jugadores</th>
+    <th>Duracion</th>
+    <th>Idioma</th>
+    <th>Lanzamiento</th>
+    <th>Opciones</th>
+  </tr></thead>
+  <tbody>
+    <tr *ngFor="let juego of juegos">
+      <td class="location" id="home">
+        <div class= "juego-image">
+          <a><img class="box"  [src]= "juego.imagePath" [alt]= "juego.nombre"></a>
+        </div>
+      </td>
+      <td style="max-width: 200px;">{{juego.id}}</td>
+      <td style="max-width: 200px;">{{juego.nombre}}</td>
+      <td>{{juego.desarrollador}}</td>
+      <td>{{juego.editor}}</td>
+      <td>{{juego.genero}}</td>
+      <td>{{juego.jugadores}}</td>
+      <td>{{juego.duracion}}</td>
+      <td>{{juego.idioma}}</td>
+      <td>{{juego.lanzamiento}}</td>
+      <td>
+        <button class="nav-link mb-auto" title="borrar"(click)="borrarJuego(juego.id)">
+          Eliminar
+        </button>
+        <a [routerLink]="['/usuario/cuenta/admin/edit', juego.id]" ><i class="fas fa-edit"></i>Editar</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<form [formGroup]= "form" (submit) = "agregarJuego()" >
   <table class="table-responsive table-striped table-bordered table-hover table-checkable order-column dataTable">
     <thead><tr>
-      <th>ID</th>
+      <th>Imagen</th>
       <th>Nombre</th>
       <th>Desarrollador</th>
       <th>Editor</th>
@@ -10,121 +51,60 @@
       <th>Duracion</th>
       <th>Idioma</th>
       <th>Lanzamiento</th>
-      <th>Opciones</th>
     </tr></thead>
     <tbody>
-      <tr *ngFor="let juego of juegos">
-        <td style="max-width: 200px;">{{juego._id}}</td>
-        <td style="max-width: 200px;">{{juego.nombre}}</td>
-        <td>{{juego.desarrollador}}</td>
-        <td>{{juego.editor}}</td>
-        <td>{{juego.genero}}</td>
-        <td>{{juego.jugadores}}</td>
-        <td>{{juego.duracion}}</td>
-        <td>{{juego.idioma}}</td>
-        <td>{{juego.lanzamiento}}</td>
+      <tr>
         <td>
-          <button title="borrar"(click)="borrarJuego(juego._id)">
-            <i class="fas fa-trash-alt"></i>
+          <button mat-stroked-button type="button"(click)="filepicker.click()">
+            Imagen
           </button>
-          <button title="editar" (click)="editarJuego(juego)">
-            <i class="fas fa-edit"></i>
-          </button>
+          <input type="file" #filepicker (change) = "PickedImage($event)" style="max-width: 50px;">
+          <div class = "image-preview box" *ngIf = "Pickedimage !== '' && Pickedimage">
+            <img  [src]= "Pickedimage" [alt]= "form.value.nombre">
+          </div>
+        </td>
+        <td>
+          <input type="text"
+          formControlName = "nombre">
+        </td>
+        <td>
+          <input type="text"
+          formControlName = "desarrollador">
+        </td>
+        <td>
+          <input type="text"
+          formControlName = "editor">
+        </td>
+        <td>
+          <input type="text"
+          formControlName = "genero">
+        </td>
+        <td>
+          <input type="text"
+          formControlName = "jugadores">
+        </td>
+        <td>
+          <input type="text"
+          formControlName = "duracion">
+        </td>
+        <td>
+          <input type="text"
+          formControlName = "idioma">
+        </td>
+        <td>
+          <input type="text"
+          formControlName = "lanzamiento">
+        </td>
+        <td style="max-width: 100px;">
+          <div class="btn-group" role="group">
+            <button class="remove-item-button" type="submit" >Guardar</button>
+            <button class="remove-item-button" (click)="limpiarForm()">Limpiar</button>
+          </div>
         </td>
       </tr>
     </tbody>
   </table>
 
-  <form #juegoForm="ngForm" (ngSubmit)="(juegoForm)" enctype="multipart/form-data">
-    <table class="table-responsive table-striped table-bordered table-hover table-checkable order-column dataTable">
-      <thead><tr>
-        <th>Imagen</th>
-        <th>Nombre</th>
-        <th>Desarrollador</th>
-        <th>Editor</th>
-        <th>Genero</th>
-        <th>Jugadores</th>
-        <th>Duracion</th>
-        <th>Idioma</th>
-        <th>Lanzamiento</th>
-      </tr></thead>
-      <tbody>
-        <input type="hidden"
-        name="_id" #_id="ngModel"
-        [(ngModel)]="juegosService.juegoSeleccionado._id">
-        <tr>
-          <td style="width: 125px;">
-            <div class="custom-file">
-              <input type="file" name="image">
-              <button type="submit">Upload</button>
-            </div>
-          </td>
-          <td>
-            <input class="form-control"
-            type="text" name="nombre"
-            #nombre="ngModel"
-            [(ngModel)]="juegosService.juegoSeleccionado.nombre">
-          </td>
-          <td>
-            <input class="form-control"
-            type="text" name="desarrollador"
-            #desarrollador="ngModel"
-            [(ngModel)]="juegosService.juegoSeleccionado.desarrollador">
-          </td>
-          <td>
-            <input class="form-control"
-            type="text" name="editor"
-            #editor="ngModel"
-            [(ngModel)]="juegosService.juegoSeleccionado.editor">
-          </td>
-          <td>
-            <input class="form-control"
-            type="text" name="genero"
-            #genero="ngModel"
-            [(ngModel)]="juegosService.juegoSeleccionado.genero">
-          </td>
-          <td>
-            <input class="form-control"
-            type="text" name="jugadores"
-            #jugadores="ngModel"
-            [(ngModel)]="juegosService.juegoSeleccionado.jugadores">
-          </td>
-          <td>
-            <input class="form-control"
-            type="text" name="duracion"
-            #duracion="ngModel"
-            [(ngModel)]="juegosService.juegoSeleccionado.duracion">
-          </td>
-          <td>
-            <input class="form-control"
-            type="text" name="idioma"
-            #idioma="ngModel"
-            [(ngModel)]="juegosService.juegoSeleccionado.idioma">
-          </td>
-          <td>
-            <input class="form-control"
-            type="text" name="lanzamiento"
-            #lanzamiento="ngModel"
-            [(ngModel)]="juegosService.juegoSeleccionado.lanzamiento">
-          </td>
-          <td style="max-width: 100px;">
-            <div class="btn-group" role="group">
-              <button class="remove-item-button" (click)="agregarJuego(juegoForm)" >Guardar</button>
-              <button class="remove-item-button" (click)="limpiarForm(juegoForm)">Limpiar</button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </form>
+</form>
 
-  <div class="input-group-prepend">
-    <span  class="input-group-text upload"  (click)="upload()"  id="btnUpload">Upload</span>
-  </div>
-  <div class="custom-file">
-    <form #imageForm="ngForm" (ngSubmit)="(imageForm)" enctype="multipart/form-data">
-      <input (change)="fileChange($event)"  type="file"  class="custom-file-input"  id="inputGroupFile01"  aria-describedby="inputGroupFileAddon01">
-    </form>
-    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-  </div>
 </div>

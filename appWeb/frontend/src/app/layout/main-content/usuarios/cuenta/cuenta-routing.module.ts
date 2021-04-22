@@ -10,7 +10,9 @@ const routes: Routes = [
       {path: '', redirectTo: 'perfil', pathMatch: 'full' },
       {path: 'perfil', component: PerfilComponent,  pathMatch: 'full'},
       {path: 'seguridad', component: SeguridadComponent,  pathMatch: 'full'},
-      {path: 'admin', component: AdminComponent,  pathMatch: 'full'}]
+      {path: 'admin', component: AdminComponent, pathMatch: 'full'},
+      {path: 'admin/create', component: AdminComponent, pathMatch: 'full'},
+      {path: 'admin/edit/:juegoId', component: AdminComponent, pathMatch: 'full'}]
   }];
 
 @NgModule({

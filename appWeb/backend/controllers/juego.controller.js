@@ -8,9 +8,24 @@ controladorJuego.getJuegos = async (req,res) =>{
     await Juego.find((err, juegos) =>{
         if (err) {return res.status(500).send({ message: err });}
         if (!juegos) {return res.status(404).send({ message: "Juegos no encontrados." });}
-        res.json(juegos);
+        res.status(200).json({
+            message: "Juegos encontrados",
+            juegos: juegos
+        });
     }); 
 };
+
+controladorJuego.getJuegosSortName = async (req,res) =>{
+    await Juego.find({}).sort({nombre: 'asc'}).exec((err, juegos) =>{
+        if (err) {return res.status(500).send({ message: err });}
+        if (!juegos) {return res.status(404).send({ message: "Juegos no encontrados." });}
+        res.status(200).json({
+            message: "Juegos encontrados",
+            juegos: juegos
+        });
+    }); 
+};
+
 
 controladorJuego.deleteJuegos = async (req, res) => {
     await Juego.deleteMany();
@@ -26,28 +41,8 @@ controladorJuego.getJuego = async (req, res) =>{
     });
 };
 
-controladorJuego.postJuego = async (req, res) => {
-    const juego = new Juego({
-        nombre:                 req.body.nombre,
-        desarrollador:          req.body.desarrollador,
-        editor:                 req.body.editor,
-        genero:                 req.body.genero,
-        jugadores:              req.body.jugadores,
-        duracion:               req.body.duracion,
-        idioma:                 req.body.idioma,
-        lanzamiento:            req.body.lanzamiento
-    });
-    if(req.file){
-        const { filename } = req.file
-        juego.setImgUrl(filename);
-    }
-    await juego.save((err,juego)=>{
-        if (err) {return res.status(500).send({ message: "Error: "+err });}
-        res.json({status: 'Juego añadido.',post: juego});
-    });
-};
-
-controladorJuego.putJuego = async (req, res) => {
+controladorJuego.postJuego = async (req, res, next) => {
+    const url = req.protocol + '://'+ req.get("host");
     const juego = new Juego({
         nombre:                 req.body.nombre,
         desarrollador:          req.body.desarrollador,
@@ -57,15 +52,46 @@ controladorJuego.putJuego = async (req, res) => {
         duracion:               req.body.duracion,
         idioma:                 req.body.idioma,
         lanzamiento:            req.body.lanzamiento,
+        imagePath:              url + "/images/"+req.file.filename
     });
-    if(req.file){
-        const { filename } = req.file
-        juego.setImgUrl(filename);
-    }
-    await Juego.findByIdAndUpdate(req.params.id, {$set:juego}, {new: true, useFindAndModify: false }, (err, usuario) =>{
-        if (err) {return res.status(500).send({ message: err });}
-        if (!juego) {return res.status(404).send({ message: "Juego no encontrados." });}
-        res.json({status: 'Juego actualizado.'});
+ 
+    await juego.save().then(result =>{
+        res.status(201).json({
+            message: "Juego publicado correctamente",
+            juego: {
+                ...result,
+                id:                     result._id,
+                imagePath:              result.imagePath
+            }
+        })
+    })
+};
+
+controladorJuego.putJuego = async (req, res) => {
+    let imagePath = req.body.imagePath; 
+    if(req.file){  
+      const url = req.protocol + '://'+ req.get("host");  
+      imagePath = url + "/images/"+req.file.filename  
+    }  
+    const juego = new Juego({
+        _id:                    req.body.id,
+        nombre:                 req.body.nombre,
+        desarrollador:          req.body.desarrollador,
+        editor:                 req.body.editor,
+        genero:                 req.body.genero,
+        jugadores:              req.body.jugadores,
+        duracion:               req.body.duracion,
+        idioma:                 req.body.idioma,
+        lanzamiento:            req.body.lanzamiento,
+        imagePath:              imagePath
+    });
+
+    await Juego.findByIdAndUpdate({_id:req.params.id}, juego).then(result =>{ 
+            console.log(result);  
+            res.status(200).json({
+                message: "Update Successful!",
+                result: result
+          });  
     });
 };
 

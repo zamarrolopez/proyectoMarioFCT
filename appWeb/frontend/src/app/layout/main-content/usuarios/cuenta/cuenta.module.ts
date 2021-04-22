@@ -11,6 +11,7 @@ import { AdminComponent } from './admin/admin.component';
 import { LayoutModule } from 'src/app/layout/layout.module';
 import { SeguridadComponent } from './seguridad/seguridad.component';
 import { ListaCrearJuegoComponent } from 'src/app/shared-component/lista-crear-juego/lista-crear-juego.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -20,7 +21,8 @@ import { ListaCrearJuegoComponent } from 'src/app/shared-component/lista-crear-j
   imports: [
     CuentaRoutingModule,
     CommonModule,
-    LayoutModule
+    LayoutModule,
+    ReactiveFormsModule
   ]
 })
 export class CuentaModule { }

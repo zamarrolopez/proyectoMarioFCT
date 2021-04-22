@@ -1,5 +1,6 @@
 /**/const express = require('express');
 /**/const router = express.Router();
+/**/const multer = require('multer');
 //Controlador
 /**/const juego = require('../controllers/juego.controller');
 //Middleware
@@ -11,11 +12,12 @@
 
 //GENERALES
 router.get("/get", juego.getJuegos);
+router.get("/get/nombre", juego.getJuegosSortName);
 router.delete("/delete", juego.deleteJuegos);
 //ESPECIFICAS
 router.get("/get/:id", juego.getJuego);
-router.post("/post",verificarImagen.single('imgUrl') ,verificarJuego.checkDuplicateJuego , juego.postJuego);
-router.put("/put/:id", juego.putJuego);
+router.post("/post", multer({storage:verificarImagen.storage}).single("image"), verificarJuego.checkDuplicateJuego , juego.postJuego);
+router.put("/put/:id",multer({storage:verificarImagen.storage}).single("image"),  juego.putJuego);
 router.delete("/delete/:id", juego.deleteJuego);
 
 

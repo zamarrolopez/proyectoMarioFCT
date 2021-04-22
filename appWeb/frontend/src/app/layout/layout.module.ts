@@ -15,7 +15,7 @@ import { MainFooterComponent } from './main-footer/main-footer.component';
   declarations: [LayoutComponent, MainHeaderComponent, MainContentComponent, MainFooterComponent],
   imports: [
     LayoutRoutingModule,
-    CommonModule
+    CommonModule,
   ],
   exports:[
     FormsModule,
