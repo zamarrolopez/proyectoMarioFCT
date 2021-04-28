@@ -5,14 +5,15 @@ Usuarios:
 	+Publicaciones de juegos.
 
 	+Imagenes de personas y juegos.
-	+Sistema de Valoraciones.
-	-Listado de juegos.
-		+Detalles de los juegos.
 
+	-Listado de juegos.
+	+Detalles de los juegos.
+
+	+Sistema de Valoraciones.
+	+Gestión de usuarios.
 	+Chat para usuarios.(opcional)
 	
 Administracion:
-	+Gestión de usuarios.
 	+Gestión de juegos.
 	
 	

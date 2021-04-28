@@ -37,7 +37,7 @@ controladorJuego.getJuego = async (req, res) =>{
     await Juego.findById(req.params.id ,(err, juego) =>{
         if (err) {return res.status(500).send({ message: err });}
         if (!juego) {return res.status(404).send({ message: "Juego no encontrado." });}
-        res.json(juego);
+        res.status(200).json(juego);
     });
 };
 
@@ -52,7 +52,7 @@ controladorJuego.postJuego = async (req, res, next) => {
         duracion:               req.body.duracion,
         idioma:                 req.body.idioma,
         lanzamiento:            req.body.lanzamiento,
-        imagePath:              url + "/images/"+req.file.filename
+        imagePath:              url + "/images/juegos/"+req.file.filename
     });
  
     await juego.save().then(result =>{
@@ -71,7 +71,7 @@ controladorJuego.putJuego = async (req, res) => {
     let imagePath = req.body.imagePath; 
     if(req.file){  
       const url = req.protocol + '://'+ req.get("host");  
-      imagePath = url + "/images/"+req.file.filename  
+      imagePath = url + "/images/juegos/"+req.file.filename  
     }  
     const juego = new Juego({
         _id:                    req.body.id,
@@ -87,19 +87,20 @@ controladorJuego.putJuego = async (req, res) => {
     });
 
     await Juego.findByIdAndUpdate({_id:req.params.id}, juego).then(result =>{ 
-            console.log(result);  
-            res.status(200).json({
-                message: "Update Successful!",
-                result: result
-          });  
+        res.status(200).json({
+            message: "Juego Actualizado.",
+            result: result
+        });  
     });
 };
 
 controladorJuego.deleteJuego = async (req, res) => {
-    await Juego.findByIdAndRemove(req.params.id, (err, juego)=>{
+    await Juego.findByIdAndRemove(req.params.id, (err, juego) =>{
         if (err) {return res.status(500).send({ message: err });}
         if (!juego) {return res.status(404).send({ message: "Juego no encontrado." });}
-        res.json({status: 'Juego eliminado.'})
+        res.status(200).json({
+            message: 'Juego Eliminado.'
+        });
     });
 };
 

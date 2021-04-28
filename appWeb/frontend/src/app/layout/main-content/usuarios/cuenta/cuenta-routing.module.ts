@@ -11,7 +11,6 @@ const routes: Routes = [
       {path: 'perfil', component: PerfilComponent,  pathMatch: 'full'},
       {path: 'seguridad', component: SeguridadComponent,  pathMatch: 'full'},
       {path: 'admin', component: AdminComponent, pathMatch: 'full'},
-      {path: 'admin/create', component: AdminComponent, pathMatch: 'full'},
       {path: 'admin/edit/:juegoId', component: AdminComponent, pathMatch: 'full'}]
   }];
 

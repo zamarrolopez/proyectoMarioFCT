@@ -20,9 +20,7 @@ export class JuegosService {
   public juegoSeleccionado!: Juego;
 
 
-  constructor(private http: HttpClient) {
-    //this.juegos$ = new Subject();
-  }
+  constructor(private http: HttpClient) {}
 
 
 
@@ -92,7 +90,18 @@ export class JuegosService {
 
     this.http.post<{message: string, juego:Juego}>(URL + `post`, juegoData)
     .subscribe((responseData)=>{
-      const juego: Juego = {id:responseData.juego.id, nombre:nombre, desarrollador:desarrollador, editor:editor, genero:genero, jugadores:jugadores, duracion:duracion, idioma:idioma, lanzamiento:lanzamiento, imagePath:responseData.juego.imagePath}
+      const juego: Juego = {
+        id:             responseData.juego.id,
+        nombre:         nombre,
+        desarrollador:  desarrollador,
+        editor:         editor,
+        genero:         genero,
+        jugadores:      jugadores,
+        duracion:       duracion,
+        idioma:         idioma,
+        lanzamiento:    lanzamiento,
+        imagePath:      responseData.juego.imagePath
+      }
       this.juegos.push(juego);
       this.juegoUpdated.next([...this.juegos]);
     });
@@ -113,7 +122,18 @@ export class JuegosService {
       juegoData.append("lanzamiento",lanzamiento);
       juegoData.append("image", image, nombre);
     }else{
-      juegoData = { id:id, nombre:nombre, desarrollador:desarrollador, editor:editor, genero:genero, jugadores:jugadores, duracion:duracion, idioma:idioma, lanzamiento:lanzamiento, imagePath: image }
+      juegoData = {
+        id:id,
+        nombre:nombre,
+        desarrollador:desarrollador,
+        editor:editor,
+        genero:genero,
+        jugadores:jugadores,
+        duracion:duracion,
+        idioma:idioma,
+        lanzamiento:lanzamiento,
+        imagePath: image
+      }
     }
     this.http.put(URL + `put/`+id, juegoData).subscribe(response  =>{
       const updateJuegos = [...this.juegos];
@@ -131,12 +151,28 @@ export class JuegosService {
   }
 
   getJuego(id: string){
-    return this.http.get<{_id: string, nombre: string, desarrollador: string, editor: string, genero: string, jugadores: number, duracion: string, idioma: string, lanzamiento: string, imagePath: string }>(URL + `get`+id);
+    return this.http.get<{
+      _id: string,
+      nombre: string,
+      desarrollador: string,
+      editor: string,
+      genero: string,
+      jugadores: number,
+      duracion: string,
+      idioma: string,
+      lanzamiento: string,
+      imagePath: string
+    }>(
+      URL + `get/${id}`
+      );
   }
 
-  deleteJuego(_id: string){return this.http.delete(URL + `delete/${_id}`);
-
-}
+  deleteJuego(_id: string){
+    this.http.delete<{message: string}>(URL + `delete/${_id}`).subscribe((res)=>{
+      //Alerta
+      console.log(res.message);
+    });;
+  }
 
 
 

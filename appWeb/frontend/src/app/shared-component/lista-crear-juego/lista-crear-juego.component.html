@@ -1,3 +1,5 @@
+
+
 <div class="products" ng-app="app" ng-controller="AppCtrl">
 <table class="table-responsive table-striped table-bordered table-hover table-checkable order-column dataTable">
   <thead><tr>
@@ -30,16 +32,15 @@
       <td>{{juego.idioma}}</td>
       <td>{{juego.lanzamiento}}</td>
       <td>
-        <button class="nav-link mb-auto" title="borrar"(click)="borrarJuego(juego.id)">
-          Eliminar
-        </button>
+        <a type="button" title="Borrar" (click)="borrarJuego(juego.id)"><i class="fas fa-trash-alt"></i>Eliminar</a>
         <a [routerLink]="['/usuario/cuenta/admin/edit', juego.id]" ><i class="fas fa-edit"></i>Editar</a>
       </td>
     </tr>
   </tbody>
 </table>
 
-<form [formGroup]= "form" (submit) = "agregarJuego()" >
+<form [formGroup]= "form" (submit)="agregarJuego()">
+  <!--<a type="button" class="btn btn-warning" [routerLink]="['/usuario/cuenta/admin/edit', juego.id]" >Modo Edición</a>-->
   <table class="table-responsive table-striped table-bordered table-hover table-checkable order-column dataTable">
     <thead><tr>
       <th>Imagen</th>
@@ -55,9 +56,7 @@
     <tbody>
       <tr>
         <td>
-          <button mat-stroked-button type="button"(click)="filepicker.click()">
-            Imagen
-          </button>
+          <button mat-stroked-button type="button"(click)="filepicker.click()"> Imagen</button>
           <input type="file" #filepicker (change) = "PickedImage($event)" style="max-width: 50px;">
           <div class = "image-preview box" *ngIf = "Pickedimage !== '' && Pickedimage">
             <img  [src]= "Pickedimage" [alt]= "form.value.nombre">

@@ -12,15 +12,13 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
   styleUrls: ['./lista-crear-juego.component.scss']
 })
 export class ListaCrearJuegoComponent implements OnInit {
-  /**/
   private JuegoSub!: Subscription;
-  private mode= 'create';
+  public mode = 'create';
   private juegoId!: string;
   public juego!: Juego;
   form!: FormGroup;
   Pickedimage!: string;
 
-  /**/
   juegos!: Juego[];
   file!: File;
 
@@ -28,6 +26,7 @@ export class ListaCrearJuegoComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = new FormGroup({
+      //id: new FormControl(null, {validators:[Validators.required]}),
       nombre: new FormControl(null, {validators:[Validators.required, Validators.minLength(3)]}),
       desarrollador: new FormControl(null, {validators: [Validators.required]}),
       editor: new FormControl(null, {validators: [Validators.required]}),
@@ -47,9 +46,21 @@ export class ListaCrearJuegoComponent implements OnInit {
         this.mode='edit';
         this.juegoId = paramMap.get('juegoId')!;
         this.juegosService.getJuego(this.juegoId).subscribe(juegoData=>{
-          this.juego = {id:juegoData._id, nombre:juegoData.nombre, desarrollador:juegoData.desarrollador, editor:juegoData.editor, genero:juegoData.genero, jugadores:juegoData.jugadores, duracion:juegoData.duracion, idioma:juegoData.idioma, lanzamiento:juegoData.lanzamiento, imagePath:juegoData.imagePath}
+
+          this.juego = {
+            id:             juegoData._id,
+            nombre:         juegoData.nombre,
+            desarrollador:  juegoData.desarrollador,
+            editor:         juegoData.editor,
+            genero:         juegoData.genero,
+            jugadores:      juegoData.jugadores,
+            duracion:       juegoData.duracion,
+            idioma:         juegoData.idioma,
+            lanzamiento:    juegoData.lanzamiento,
+            imagePath:      juegoData.imagePath
+          }
+
           this.form.setValue({
-            id:             this.juego.id,
             nombre:         this.juego.nombre,
             desarrollador:  this.juego.desarrollador,
             editor:         this.juego.editor,
@@ -58,7 +69,7 @@ export class ListaCrearJuegoComponent implements OnInit {
             duracion:       this.juego.duracion,
             idioma:         this.juego.idioma,
             lanzamiento:    this.juego.lanzamiento,
-            imagePath:      this.juego.imagePath
+            image:          this.juego.imagePath
           });
         });
       }else{
@@ -91,7 +102,6 @@ export class ListaCrearJuegoComponent implements OnInit {
 
   agregarJuego(){
     if(this.form.invalid){
-      console.log(this.form);
       return;0
     }
     if(this.mode==="create"){
@@ -106,6 +116,7 @@ export class ListaCrearJuegoComponent implements OnInit {
         this.form.value.lanzamiento,
         this.form.value.image
         );
+
     }else{
       this.juegosService.updateJuego(
         this.juegoId,
@@ -118,78 +129,26 @@ export class ListaCrearJuegoComponent implements OnInit {
         this.form.value.idioma,
         this.form.value.lanzamiento,
         this.form.value.image
-        );
+      );
+      window.location.href = '/usuario/cuenta/admin';
     }
+    this.limpiarForm();
+  }
+
+  borrarJuego(_id: string){
+    if(confirm('¿Estas seguro que desea Eliminar este producto?')){
+      this.juegosService.deleteJuego(_id);
+      window.location.href = '/usuario/cuenta/admin';
+    }
+  }
+
+  //SubMetodos
+  limpiarForm(){
     this.form.reset();
+    this.Pickedimage = "";
   }
 
-/*
-    if(form.invalid){
-      return;
-    }
-    this.juegosService.addJuegos(form);
 
-    if(form.value._id){
-      this.juegosService.putJuego(form.value)
-        .subscribe(res => {
-        this.limpiarForm(form);
-        this.mostrarJuegos();
-      });
-    } else {
-      this.juegosService.postJuego(form.value)
-        .subscribe(res => {
-        this.limpiarForm();
-        this.mostrarJuegos();
-      })
-    }
-*/
-
-
-
-/*
-  mostrarJuegos(){
-    this.juegosService.getJuegos().subscribe(res =>{
-      this.juegosService.setJuegos(res as Juego[]);
-    });
-  }
-  */
-/*
-  editarJuego(juego: Juego){
-    this.juegosService.juegoSeleccionado = juego;
-  }
-*/
-
-
-    /*
-    this.mostrarJuegos();
-    this.juegosService.getJuegos$().subscribe(juegos =>{
-      this.juegos = juegos;
-    });
-    */
-/*
-  mostrarJuegos(){
-  this.juegosService.getJuegos().subscribe(res =>{
-    this.juegosService.setJuegos(res as Juego[]);
-  });
-}
-*/
-
-
-limpiarForm(form?:NgForm){
-  if(form){
-    form.reset();
-   // this.juegosService.juegoSeleccionado = new Juego();
-  }
-}
-
-borrarJuego(_id: string){
-  if(confirm('¿Estas seguro que desea Eliminar este producto?')){
-    this.juegosService.deleteJuego(_id)
-      .subscribe(res => {
-     // this.mostrarJuegos();
-    });
-  }
-}
 
 }
 

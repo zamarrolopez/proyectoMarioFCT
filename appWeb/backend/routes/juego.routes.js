@@ -16,8 +16,8 @@ router.get("/get/nombre", juego.getJuegosSortName);
 router.delete("/delete", juego.deleteJuegos);
 //ESPECIFICAS
 router.get("/get/:id", juego.getJuego);
-router.post("/post", multer({storage:verificarImagen.storage}).single("image"), verificarJuego.checkDuplicateJuego , juego.postJuego);
-router.put("/put/:id",multer({storage:verificarImagen.storage}).single("image"),  juego.putJuego);
+router.post("/post", multer({storage:verificarImagen.storageJuegos}).single("image"), verificarJuego.checkDuplicateJuego , juego.postJuego);
+router.put("/put/:id",multer({storage:verificarImagen.storageJuegos}).single("image"),  juego.putJuego);
 router.delete("/delete/:id", juego.deleteJuego);
 
 
