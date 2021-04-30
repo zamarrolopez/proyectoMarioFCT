@@ -7,63 +7,41 @@
 
   <div class="col-md-9">
     <div class="container">
-      <form #cuentaForm="ngForm" (ngSubmit)="(cuentaForm)">
-        <!--OCULTOS-->
-        <input type="hidden"
-        name="_id" #_id="ngModel"
-        [(ngModel)]="usuario._id">
-
-        <input type="hidden"
-        name="email" #email="ngModel"
-        [(ngModel)]="usuario.email">
-
-        <input type="hidden"
-        name="pass" #pass="ngModel"
-        [(ngModel)]="usuario.pass">
-
-        <input type="hidden"
-        name="numLog" #numLog="ngModel"
-        [(ngModel)]="usuario.numLog">
-
-        <input type="hidden"
-        name="roles" #roles="ngModel"
-        [(ngModel)]="usuario.roles">
-        <!--OCULTOS-->
-
+      <form [formGroup]="form" (submit)="putPerfil()">
         <div class="form-group">
-          <input class="form-control"
-          type="text" name="nombreU"
-          #nombreU="ngModel"
-          [(ngModel)]="usuario.nombreU"
+          <label for=NombreU>Nombre de Usuario</label>
+          <input type="text"
+          class="form-control"
+          formControlName = "nombreU"
           placeholder="Nombre de usuario">
         </div>
         <div class="form-group">
           <label for=Nombre>Nombre</label>
-          <input class="form-control"
-          type="text" name="nombre"
-          #nombre="ngModel"
-          [(ngModel)]="usuario.nombre"
+          <input type="text"
+          class="form-control"
+          formControlName = "nombre"
           placeholder="Nombre">
         </div>
+
         <div class="form-group">
-            <label for=Apellidos>Apellidos</label>
-            <input class="form-control"
-            type="text" name="apellidos"
-            #apellidos="ngModel"
-            [(ngModel)]="usuario.apellidos"
-            placeholder="Apellidos">
+          <label for=Apellidos>Apellidos</label>
+          <input type="text"
+          class="form-control"
+          formControlName = "apellidos"
+          placeholder="Apellidos">
         </div>
-        <div class="form-group ">
-            <label for=tlf>Telefono</label>
-            <input class="form-control"
-            type="text" name="tlf"
-            #tlf="ngModel"
-            [(ngModel)]="usuario.tlf"
-            placeholder="Numero de telefono">
+
+        <div class="form-group">
+          <label for=Telefono>Telefono</label>
+          <input type="text"
+          class="form-control"
+          formControlName = "tlf"
+          placeholder="Numero de telefono">
         </div>
+
         <div class="row mt-5">
           <div class="col">
-            <button type="button" class="btn btn-primary btn-block" (click)="putPerfil(cuentaForm)">Guardar cambios</button>
+            <button type="submit" class="btn btn-primary btn-block">Guardar cambios</button>
           </div>
           <div class="col">
             <button type="button" class="btn btn-default btn-block">Cancelar</button>

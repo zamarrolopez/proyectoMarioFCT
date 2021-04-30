@@ -19,7 +19,7 @@ export class SeguridadComponent implements OnInit {
   }
 
   putEmail(email:string){
-    this.usuariosService.putEmail(this.usuario._id, email).subscribe(res =>{
+    this.usuariosService.putEmail(this.usuario.id, email).subscribe(res =>{
       alert("Correo cambiado correctamente");
       this.usuario.email = email;
       this.authService.saveUser(this.usuario);
@@ -33,7 +33,7 @@ export class SeguridadComponent implements OnInit {
       if(form.value.newPass != form.value.newPass2){
         this.error="Datos incorrectos";
       }else{
-        this.usuariosService.putPass(this.usuario._id, form.value.newPass).subscribe(res =>{
+        this.usuariosService.putPass(this.usuario.id, form.value.newPass).subscribe(res =>{
           alert("Contraseña cambiada correctamente");
           this.usuario.pass = form.value.newPass;
           this.authService.saveUser(this.usuario);

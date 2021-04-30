@@ -10,14 +10,13 @@ import { AdminComponent } from './admin/admin.component';
 
 import { LayoutModule } from 'src/app/layout/layout.module';
 import { SeguridadComponent } from './seguridad/seguridad.component';
-import { ListaCrearJuegoComponent } from 'src/app/shared-component/lista-crear-juego/lista-crear-juego.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 
 
 
 @NgModule({
-  declarations: [CuentaComponent, MenuComponent, PerfilComponent, AdminComponent, ListaCrearJuegoComponent, SeguridadComponent],
+  declarations: [CuentaComponent, MenuComponent, PerfilComponent, AdminComponent, SeguridadComponent],
   imports: [
     CuentaRoutingModule,
     CommonModule,
