@@ -46,7 +46,6 @@ export class AdminComponent implements OnInit {
         this.mode='edit';
         this.juegoId = paramMap.get('juegoId')!;
         this.juegosService.getJuego(this.juegoId).subscribe(juegoData=>{
-
           this.juego = {
             id:             juegoData._id,
             nombre:         juegoData.nombre,
@@ -103,10 +102,10 @@ export class AdminComponent implements OnInit {
 
   //Agrega un juego.
   agregarJuego(){
-    console.log(this.form)
     if(this.form.invalid){
       return;0
     }
+
     if(this.mode==="create"){
       this.juegosService.addJuego(
         this.form.value.nombre,

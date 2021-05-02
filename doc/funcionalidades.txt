@@ -3,8 +3,8 @@ Usuarios:
 	+Registro.
 	+Auth.
 	+Publicaciones de juegos.
-
 	+Imagenes de personas y juegos.
+
 
 	-Listado de juegos.
 	+Detalles de los juegos.

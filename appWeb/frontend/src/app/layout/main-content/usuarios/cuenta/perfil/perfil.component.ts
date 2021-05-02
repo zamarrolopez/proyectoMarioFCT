@@ -14,10 +14,12 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
   styleUrls: ['./perfil.component.scss']
 })
 export class PerfilComponent implements OnInit {
+  public usuario!:Usuario;
+  Pickedimage!: string;
+  file!: File;
   form!: FormGroup;
 
 
-  usuario!:Usuario;
   constructor(public authService: AuthService, public usuariosService: UsuariosService, public route:ActivatedRoute) {}
 
   ngOnInit(): void {
@@ -35,8 +37,8 @@ export class PerfilComponent implements OnInit {
         asyncValidators: [mimetype]
       })
     });
-    this.usuario = this.authService.getUser();
 
+    this.usuario = this.authService.getUser();
     this.form.setValue({
       nombreU:        this.usuario.nombreU,
       pass:           this.usuario.pass,
@@ -46,17 +48,37 @@ export class PerfilComponent implements OnInit {
       tlf:            this.usuario.tlf,
       numLog:         this.usuario.numLog,
       roles:          this.usuario.roles,
-    //  image:          this.usuario.imagePath
+      image:          this.usuario.imagePath
     });
+    this.Pickedimage = this.usuario.imagePath;
   }
 
   putPerfil(){
-  /*if(){
-      this.usuariosService.putOne(this.usuario._id, form.value).subscribe(res =>{
-        alert("Cambios guardados con exito!");
-        this.authService.saveUser(this.usuario);
-        window.location.reload();
-      });
-    }*/
+    this.usuariosService.putOne(
+      this.usuario.id,
+      this.form.value.nombreU,
+      this.form.value.pass,
+      this.form.value.email,
+      this.form.value.nombre,
+      this.form.value.apellidos,
+      this.form.value.tlf,
+      this.form.value.numLog,
+      this.form.value.roles,
+      this.form.value.image
+    );
+  }
+
+
+
+//Se encarga de cojer la imagen del input y filtrarla.
+  PickedImage(event: Event){
+    const file = (event.target as HTMLInputElement).files![0];
+    this.form.patchValue({image: file});
+    this.form.get('image')!.updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = ()=>{
+      this.Pickedimage = reader.result as string;
+    };
+    reader.readAsDataURL(file);
   }
 }

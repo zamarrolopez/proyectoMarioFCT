@@ -135,10 +135,10 @@ export class JuegosService {
         imagePath: image
       }
     }
-    this.http.put(URL + `put/`+id, juegoData).subscribe(response  =>{
+    this.http.put<{message: string, juego:Juego}>(URL + `put/`+id, juegoData).subscribe(response  =>{
       const updateJuegos = [...this.juegos];
       const oldPostIndex = updateJuegos.findIndex(p=> p.id===id);
-      const juego: Juego = {id:id, nombre:nombre, desarrollador:desarrollador, editor:editor, genero:genero, jugadores:jugadores, duracion:duracion, idioma:idioma, lanzamiento:lanzamiento, imagePath:null!/*response.imagePath*/}
+      const juego: Juego = {id:id, nombre:nombre, desarrollador:desarrollador, editor:editor, genero:genero, jugadores:jugadores, duracion:duracion, idioma:idioma, lanzamiento:lanzamiento, imagePath:response.juego.imagePath}
       updateJuegos[oldPostIndex] = juego;
     });
   }

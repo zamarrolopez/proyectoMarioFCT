@@ -58,8 +58,8 @@
           <td>
             <button mat-stroked-button type="button"(click)="filepicker.click()"> Imagen</button>
             <input type="file" #filepicker (change) = "PickedImage($event)" style="max-width: 50px;">
-            <div class = "image-preview box" *ngIf = "Pickedimage !== '' && Pickedimage">
-              <img  [src]= "Pickedimage" [alt]= "form.value.nombre">
+            <div class = "image-preview box" >
+              <img *ngIf = "Pickedimage !== '' && Pickedimage"  [src]= "Pickedimage" [alt]= "form.value.nombre">
             </div>
           </td>
           <td>

@@ -88,8 +88,12 @@ controladorJuego.putJuego = async (req, res) => {
 
     await Juego.findByIdAndUpdate({_id:req.params.id}, juego).then(result =>{ 
         res.status(200).json({
-            message: "Juego Actualizado.",
-            result: result
+            message: "Juego actualizado correctamente",
+            juego: {
+                ...result,
+                id:                     result._id,
+                imagePath:              result.imagePath
+            }
         });  
     });
 };

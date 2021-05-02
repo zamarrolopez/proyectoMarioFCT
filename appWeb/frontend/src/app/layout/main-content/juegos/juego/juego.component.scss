@@ -1,7 +1,12 @@
 body{
   background:#f5f5f5;
-  margin-top:20px;}
+}
 /*------- portfolio -------*/
+.container{
+  padding: 5px;
+  border: 1px solid red;
+}
+
 .project {
 margin: 15px 0;
 }
@@ -380,6 +385,7 @@ a.btn, a.btn-social {
 }
 .mb-0 {
   margin-bottom: 0 !important;
+  text-align: center;
 }
 .btn-facebook, .btn-facebook:active, .btn-facebook:focus {
   color: #fff !important;

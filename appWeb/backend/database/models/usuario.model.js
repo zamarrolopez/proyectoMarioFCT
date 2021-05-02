@@ -51,7 +51,9 @@ const UsuarioSchema = new mongoose.Schema({
         default: Roles.Usuario,
     },
     imagePath: { 
-        type: String
+        type: String,
+        trim: true,
+        default: ""
     }
 },{
     timestamps: true

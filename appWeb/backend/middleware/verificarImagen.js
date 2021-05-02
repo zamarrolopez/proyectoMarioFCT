@@ -30,7 +30,7 @@ verificarImagen.storagePerfil = multer.diskStorage({
     if(isValid){  
       error = null;  
     } 
-    cb(null, "database/images/perfil");
+    cb(null, "database/images/perfiles");
   },
   filename: (req, file, cb)=>{  
     const name = file.originalname.toLowerCase().split(' ').join('_');

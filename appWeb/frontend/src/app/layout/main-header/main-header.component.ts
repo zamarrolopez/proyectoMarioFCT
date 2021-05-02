@@ -18,7 +18,6 @@ export class MainHeaderComponent implements OnInit {
       if(this.usuario){
         this.isAuth = true;
         this.rol = this.usuario.roles;
-        console.log(this.usuario);
       }
     }else{
       this.isAuth = false;

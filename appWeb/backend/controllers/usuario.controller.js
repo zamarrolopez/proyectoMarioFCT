@@ -23,26 +23,38 @@ controladorUsuario.getUsuario = async (req, res) =>{
     await Usuario.findById(req.params.id ,(err, usuario) =>{
         if (err) {return res.status(500).send({ message: err });}
         if (!usuario) {return res.status(404).send({ message: "Usuario no encontrados." });}
+        console.log(usuario)
         res.json(usuario);
     });
-    
 };
 
 controladorUsuario.putUsuario = async (req, res) => {
+    let imagePath = req.body.imagePath; 
+    if(req.file){  
+      const url = req.protocol + '://'+ req.get("host");  
+      imagePath = url + "/images/perfiles/"+req.file.filename  
+    }  
     const usuario = {
+        _id:            req.body.id,
         nombreU:        req.body.nombreU,
-        pass:           bcrypt.hashSync(req.body.pass, 8),
+        pass:           req.body.pass,
         email:          req.body.email,
         nombre:         req.body.nombre,
         apellidos:      req.body.apellidos,
         tlf:            req.body.tlf,
         numLog:         req.body.numLog,
-        roles:          req.body.roles
+        roles:          req.body.roles,
+        imagePath:      imagePath
     }
-    await Usuario.findByIdAndUpdate(req.params.id, {$set:usuario}, {new: true, useFindAndModify: false }, (err, usuario) =>{
-        if (err) {return res.status(500).send({ message: err });}
-        if (!usuario) {return res.status(404).send({ message: "Usuario no encontrados." });}
-        res.json({status: 'Usuario actualizado.'});
+    await Usuario.findByIdAndUpdate({_id:req.params.id}, usuario, {new: true, useFindAndModify: false }).then(result =>{ 
+        res.status(200).json({
+            message: "Usuario editado correctamente",
+            usuario: {
+                ...result,
+                id:                     result._id,
+                imagePath:              result.imagePath
+            }
+        });  
     });
 };
 

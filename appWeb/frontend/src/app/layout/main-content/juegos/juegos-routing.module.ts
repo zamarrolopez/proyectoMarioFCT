@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: '', component: JuegosComponent, children:[
     {path: '', redirectTo: 'principal', pathMatch: 'full' },
     {path: 'principal', component: PrincipalComponent,  pathMatch: 'full'},
-    {path: 'juego/:id', component: JuegoComponent,  pathMatch: 'full'}]
+    {path: 'juego/:juegoId', component: JuegoComponent,  pathMatch: 'full'}]
   }
 ];
 

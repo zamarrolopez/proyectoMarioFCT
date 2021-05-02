@@ -13,6 +13,7 @@ controladorAuth.registro = async (req, res) => {
       pass:       bcrypt.hashSync(req.body.pass, 8),
       email:      req.body.email
   });
+
   await usuario.save((err, usuario) => {
       if (err) {return res.status(500).send({ message: "Error: "+err });}
       if (req.body.roles) {
@@ -56,6 +57,7 @@ controladorAuth.login = async (req, res) => {
           tlf:            usuario.tlf,
           numLog:         usuario.numLog,
           roles:          usuario.roles,
+          imagePath:      usuario.imagePath,
           accessToken:    token
       });
   });
