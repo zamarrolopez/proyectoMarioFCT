@@ -42,7 +42,12 @@ const JuegoSchema = new mongoose.Schema({
         minlength: 2
     },
     imagePath: { 
-        type: String
+        type: String,
+        default: ""
+    },
+    puntos:{
+        type: Number,
+        default: 0
     }
 },{
     timestamps: true

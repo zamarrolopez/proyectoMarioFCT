@@ -23,7 +23,6 @@ controladorUsuario.getUsuario = async (req, res) =>{
     await Usuario.findById(req.params.id ,(err, usuario) =>{
         if (err) {return res.status(500).send({ message: err });}
         if (!usuario) {return res.status(404).send({ message: "Usuario no encontrados." });}
-        console.log(usuario)
         res.json(usuario);
     });
 };
@@ -69,7 +68,7 @@ controladorUsuario.putEmail = async (req, res) => {
 };
 
 controladorUsuario.putPass = async (req, res) => {
-    await Usuario.findByIdAndUpdate({_id:req.params.id}, {$set: {pass: bcrypt.hashSync(req.body.pass, 8)}}, {new: true, useFindAndModify: false },(err, usuario)=>{
+    await Usuario.findByIdAndUpdate({_id:req.params.id}, {$set: {pass: req.body.pass}}, {new: true, useFindAndModify: false },(err, usuario)=>{
         if (err) {return res.status(500).send({ message: err });}
         if (!usuario) {return res.status(404).send({ message: "Usuario no encontrados." });}
         res.json({status: 'Contraseña actualizada.'});

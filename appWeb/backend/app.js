@@ -24,6 +24,7 @@ app.use(cors({origin: 'http://localhost:4200'}));
 app.use('/api/auth/',require('./routes/auth.routes'));
 app.use('/api/usuario/',require('./routes/usuario.routes'));
 app.use('/api/juego/',require('./routes/juego.routes'));
+app.use('/api/valoracion/',require('./routes/valoracion.routes'));
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");

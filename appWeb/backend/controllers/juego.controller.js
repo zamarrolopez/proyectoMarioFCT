@@ -1,5 +1,6 @@
 //MODELO
 const Juego = require("../database/models/juego.model");
+const Valoracion = require("../database/models/valoracion.model");
 //CONTROLE
 const controladorJuego = {};
 
@@ -52,10 +53,10 @@ controladorJuego.postJuego = async (req, res, next) => {
         duracion:               req.body.duracion,
         idioma:                 req.body.idioma,
         lanzamiento:            req.body.lanzamiento,
-        imagePath:              url + "/images/juegos/"+req.file.filename
+        //imagePath:              url + "/images/juegos/"+req.file.filename
     });
- 
-    await juego.save().then(result =>{
+
+    await juego.save().then(async result =>{
         res.status(201).json({
             message: "Juego publicado correctamente",
             juego: {
@@ -63,8 +64,13 @@ controladorJuego.postJuego = async (req, res, next) => {
                 id:                     result._id,
                 imagePath:              result.imagePath
             }
-        })
+        }) 
+        const valoracion = new Valoracion({
+            idJuego: result._id
+        });
+        await valoracion.save();
     })
+
 };
 
 controladorJuego.putJuego = async (req, res) => {
@@ -83,7 +89,8 @@ controladorJuego.putJuego = async (req, res) => {
         duracion:               req.body.duracion,
         idioma:                 req.body.idioma,
         lanzamiento:            req.body.lanzamiento,
-        imagePath:              imagePath
+        imagePath:              imagePath,
+        puntos:                 req.body.puntos
     });
 
     await Juego.findByIdAndUpdate({_id:req.params.id}, juego).then(result =>{ 
@@ -107,5 +114,6 @@ controladorJuego.deleteJuego = async (req, res) => {
         });
     });
 };
+
 
 module.exports = controladorJuego;

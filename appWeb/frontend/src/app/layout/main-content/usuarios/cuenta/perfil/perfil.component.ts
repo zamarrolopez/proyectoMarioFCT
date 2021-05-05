@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
 import {mimetype} from "src/app/helpers/mime-type.validator";
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { Usuario } from "src/app/models/usuario.models";
 import { AuthService } from "src/app/services/auth.service";

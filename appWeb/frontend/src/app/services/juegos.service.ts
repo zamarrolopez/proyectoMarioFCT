@@ -5,6 +5,7 @@ import { Observable, Subject } from 'rxjs';
 
 //MODELS
 import { Juego } from "src/app/models/juego.models";
+
 //CONSTANTES
 const URL = 'http://localhost:3000/api/juego/';
 
@@ -30,7 +31,7 @@ export class JuegosService {
   getJuegos(){
     this.http.get<{message: string, juegos: any}>(URL+ `get`)
       .pipe(map((juegoData)=>{
-        return juegoData.juegos && juegoData.juegos.map((juego: { _id: any; nombre: any; desarrollador: any; editor: any; genero: any; jugadores: any; duracion: any; idioma: any; lanzamiento: any; imagePath: any; }) =>{
+        return juegoData.juegos && juegoData.juegos.map((juego: { _id: any; nombre: any; desarrollador: any; editor: any; genero: any; jugadores: any; duracion: any; idioma: any; lanzamiento: any; imagePath: any; puntos: any; }) =>{
           return{
             id:             juego._id,
             nombre:         juego.nombre,
@@ -41,7 +42,8 @@ export class JuegosService {
             duracion:       juego.duracion,
             idioma:         juego.idioma,
             lanzamiento:    juego.lanzamiento,
-            imagePath:      juego.imagePath
+            imagePath:      juego.imagePath,
+            puntos:         juego.puntos
           };
         });
       }))
@@ -51,32 +53,32 @@ export class JuegosService {
       });
     }
 
-    getJuegosNombre(){
-      this.http.get<{message: string, juegos: any}>(URL+ `get/nombre`)
-        .pipe(map((juegoData)=>{
-          return juegoData.juegos && juegoData.juegos.map((juego: { _id: any; nombre: any; desarrollador: any; editor: any; genero: any; jugadores: any; duracion: any; idioma: any; lanzamiento: any; imagePath: any; }) =>{
-            return{
-              id:             juego._id,
-              nombre:         juego.nombre,
-              desarrollador:  juego.desarrollador,
-              editor:         juego.editor,
-              genero:         juego.genero,
-              jugadores:      juego.jugadores,
-              duracion:       juego.duracion,
-              idioma:         juego.idioma,
-              lanzamiento:    juego.lanzamiento,
-              imagePath:      juego.imagePath
-            };
-          });
-        }))
-        .subscribe((transformedJuego)=>{
-          this.juegosNombre = transformedJuego;
-          this.juegoUpdatedNombre.next([...this.juegosNombre]);
+  getJuegosNombre(){
+    this.http.get<{message: string, juegos: any}>(URL+ `get/nombre`)
+      .pipe(map((juegoData)=>{
+        return juegoData.juegos && juegoData.juegos.map((juego: { _id: any; nombre: any; desarrollador: any; editor: any; genero: any; jugadores: any; duracion: any; idioma: any; lanzamiento: any; imagePath: any; puntos:any; }) =>{
+          return{
+            id:             juego._id,
+            nombre:         juego.nombre,
+            desarrollador:  juego.desarrollador,
+            editor:         juego.editor,
+            genero:         juego.genero,
+            jugadores:      juego.jugadores,
+            duracion:       juego.duracion,
+            idioma:         juego.idioma,
+            lanzamiento:    juego.lanzamiento,
+            imagePath:      juego.imagePath,
+            puntos:         juego.puntos
+          };
         });
-      }
+      }))
+      .subscribe((transformedJuego)=>{
+        this.juegosNombre = transformedJuego;
+        this.juegoUpdatedNombre.next([...this.juegosNombre]);
+      });
+    }
 
-
-  addJuego(nombre: string, desarrollador: string, editor: string, genero: string, jugadores: number, duracion: string, idioma: string, lanzamiento: string, image: File|string ){
+  addJuego(nombre: string, desarrollador: string, editor: string, genero: string, jugadores: number, duracion: string, idioma: string, lanzamiento: string, image: File|string, puntos:number ){
     const juegoData = new FormData();
     juegoData.append("nombre",nombre);
     juegoData.append("desarrollador",desarrollador);
@@ -87,6 +89,7 @@ export class JuegosService {
     juegoData.append("idioma",idioma);
     juegoData.append("lanzamiento",lanzamiento);
     juegoData.append("image", image, nombre);
+    juegoData.append("puntos", puntos.toString());
 
     this.http.post<{message: string, juego:Juego}>(URL + `post`, juegoData)
     .subscribe((responseData)=>{
@@ -100,14 +103,15 @@ export class JuegosService {
         duracion:       duracion,
         idioma:         idioma,
         lanzamiento:    lanzamiento,
-        imagePath:      responseData.juego.imagePath
+        imagePath:      responseData.juego.imagePath,
+        puntos:         puntos
       }
       this.juegos.push(juego);
       this.juegoUpdated.next([...this.juegos]);
     });
   }
 
-  updateJuego(id: string, nombre: string, desarrollador: string, editor: string, genero: string, jugadores: number, duracion: string, idioma: string, lanzamiento: string, image: File|string ){
+  updateJuego(id: string, nombre: string, desarrollador: string, editor: string, genero: string, jugadores: number, duracion: string, idioma: string, lanzamiento: string, image: File|string, puntos:number){
     let juegoData: Juego|FormData;
     if(typeof(image) == 'object'){
       juegoData = new FormData();
@@ -121,6 +125,7 @@ export class JuegosService {
       juegoData.append("idioma",idioma);
       juegoData.append("lanzamiento",lanzamiento);
       juegoData.append("image", image, nombre);
+      juegoData.append("puntos", puntos.toString());
     }else{
       juegoData = {
         id:id,
@@ -132,13 +137,14 @@ export class JuegosService {
         duracion:duracion,
         idioma:idioma,
         lanzamiento:lanzamiento,
-        imagePath: image
+        imagePath: image,
+        puntos: puntos
       }
     }
     this.http.put<{message: string, juego:Juego}>(URL + `put/`+id, juegoData).subscribe(response  =>{
       const updateJuegos = [...this.juegos];
       const oldPostIndex = updateJuegos.findIndex(p=> p.id===id);
-      const juego: Juego = {id:id, nombre:nombre, desarrollador:desarrollador, editor:editor, genero:genero, jugadores:jugadores, duracion:duracion, idioma:idioma, lanzamiento:lanzamiento, imagePath:response.juego.imagePath}
+      const juego: Juego = {id:id, nombre:nombre, desarrollador:desarrollador, editor:editor, genero:genero, jugadores:jugadores, duracion:duracion, idioma:idioma, lanzamiento:lanzamiento, imagePath:response.juego.imagePath, puntos:puntos}
       updateJuegos[oldPostIndex] = juego;
     });
   }
@@ -161,7 +167,8 @@ export class JuegosService {
       duracion: string,
       idioma: string,
       lanzamiento: string,
-      imagePath: string
+      imagePath: string,
+      puntos: number
     }>(
       URL + `get/${id}`
       );
@@ -174,7 +181,6 @@ export class JuegosService {
     });;
   }
 
-
-
+  valorarJuego(id:string, puntos:number){return this.http.put(URL + `put/valorar/${id}`, {puntos});}
 
 }

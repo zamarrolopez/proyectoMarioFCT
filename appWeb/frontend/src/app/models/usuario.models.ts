@@ -1,7 +1,6 @@
 
 export interface Usuario {
-
-    id:        string;
+    id:         string;
     nombreU:    string;
     pass:       string;
     email:      string;
@@ -11,5 +10,4 @@ export interface Usuario {
     numLog:     number;
     roles:      string;
     imagePath:  string;
-
 }
