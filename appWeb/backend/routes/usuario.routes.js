@@ -18,6 +18,8 @@ router.put("/put/:id", multer({storage:verificarImagen.storagePerfil}).single("i
 router.put("/put/email/:id", usuario.putEmail);
 router.put("/put/pass/:id", usuario.putPass);
 router.put("/put/rol/:id", usuario.putRol);
+router.put("/put/juego/:id", usuario.putJuego);
+router.get("/get/juego/:id/:juego", usuario.comprobarJuego); //Es post para enviarle parametros en el body.
 router.delete("/delete/:id", usuario.deleteUsuario);
 
 //Aqui exporto las rutas

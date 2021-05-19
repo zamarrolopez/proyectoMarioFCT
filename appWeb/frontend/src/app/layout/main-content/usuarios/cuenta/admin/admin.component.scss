@@ -6,15 +6,16 @@ table{
 }
 
 input{
-  max-width: 75px;
-  max-height: 20px;
+  max-width: 100%;
+  max-height: 100%;
 }
 
-td, tr{
+td, tr, th{
   margin: 0;
   padding: 5px;
   max-width: 200px;
   max-height: 100px;
+  text-align: center;
 }
 
 .fas fa-trash-alt{
@@ -34,23 +35,15 @@ input[type='file']{
   visibility: hidden;
 }
 
-.image-preview{
-  height: 5rem;
-  margin: 1rem 0;
-}
-
-.image-preview img{
-  height: 100;
-}
-
 .juego-image{
   width: 100;
 }
 
 .juego-image img{
+  margin: 0;
+  padding: 0;
   width: 100;
   box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
-
 }
 
 
@@ -77,8 +70,8 @@ html, body {
 }
 
 img {
-  height: 75px;
-  width: 75px;
+  height: 100%;
+  width: 100%;
   margin: 0;
   padding: 0;
 }
@@ -146,10 +139,6 @@ h1 {
 }
 
 
-/* MAIN CONTIANER */
-.main-container {
-  padding: 50px;
-}
 
 .box {
   display: grid;

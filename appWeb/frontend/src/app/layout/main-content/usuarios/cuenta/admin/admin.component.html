@@ -18,8 +18,8 @@
     <tbody>
       <tr *ngFor="let juego of juegos">
         <td class="location" id="home">
-          <div class= "juego-image">
-            <a><img class="box"  [src]= "juego.imagePath" [alt]= "juego.nombre"></a>
+          <div class= "juego-image" >
+            <a><img class="box" style="height: 150px"  [src]= "juego.imagePath" [alt]= "juego.nombre"></a>
           </div>
         </td>
         <td style="max-width: 200px;">{{juego.id}}</td>
@@ -40,28 +40,30 @@
   </table>
 
   <form [formGroup]= "form" (submit)="agregarJuego()">
-    <a *ngIf="mode=='edit'" type="button" class="btn btn-warning" [routerLink]="['/usuario/cuenta/admin']">Modo Edición</a>
     <table class="table-responsive table-striped table-bordered table-hover table-checkable order-column dataTable">
-      <thead><tr>
-        <th>Imagen</th>
+      <thead>
+        <th *ngIf="mode!='edit'" colspan="5">MODO CREADOR DE JUEGOS</th>
+        <th *ngIf="mode=='edit'" colspan="5"><a style="color: yellow; font-weight: bold;" type="button" [routerLink]="['/usuario/cuenta/admin']">MODO EDICION</a></th>
+      </thead>
+      <tr>
+        <th>
+          <button mat-stroked-button type="button"(click)="filepicker.click()"> Imagen</button>
+        </th>
         <th>Nombre</th>
         <th>Desarrollador</th>
         <th>Editor</th>
         <th>Genero</th>
-        <th>Jugadores</th>
-        <th>Duracion</th>
-        <th>Idioma</th>
-        <th>Lanzamiento</th>
-      </tr></thead>
+      </tr>
       <tbody>
+        <!--Fila de la imagen-->
         <tr>
-          <td>
-            <button mat-stroked-button type="button"(click)="filepicker.click()"> Imagen</button>
-            <input type="file" #filepicker (change) = "PickedImage($event)" style="max-width: 50px;">
-            <div class = "image-preview box" >
-              <img *ngIf = "Pickedimage !== '' && Pickedimage"  [src]= "Pickedimage" [alt]= "form.value.nombre">
+          <td rowspan="5">
+            <input type="file" #filepicker (change) = "PickedImage($event)">
+            <div class= "juego-image" style="height: 150px; width:150px" >
+              <a><img class="box"  *ngIf = "Pickedimage !== '' && Pickedimage"  [src]= "Pickedimage" [alt]= "form.value.nombre"></a>
             </div>
           </td>
+          <!--Datos del juego-->
           <td>
             <input type="text"
             formControlName = "nombre">
@@ -78,6 +80,16 @@
             <input type="text"
             formControlName = "genero">
           </td>
+        </tr>
+
+        <tr>
+          <th>Jugadores</th>
+          <th>Duracion</th>
+          <th>Idioma</th>
+          <th>Lanzamiento</th>
+        </tr>
+
+        <tr>
           <td>
             <input type="text"
             formControlName = "jugadores">
@@ -94,16 +106,23 @@
             <input type="text"
             formControlName = "lanzamiento">
           </td>
-          <td >
-            <div class="btn-group" role="group">
-              <button class="remove-item-button" type="submit" >Guardar</button>
-              <button class="remove-item-button" (click)="limpiarForm()">Limpiar</button>
-            </div>
+        </tr>
+        <tr>
+          <th colspan="4">Descripcion del juego</th>
+        </tr>
+        <tr>
+          <td colspan="4">
+            <input type="text"
+            formControlName = "descripcion"
+            style="width: 100%; height: 100px;">
           </td>
         </tr>
       </tbody>
     </table>
-
+    <div class="btn-group" role="group">
+      <button class="remove-item-button" type="submit" >Guardar</button>
+      <button class="remove-item-button" (click)="limpiarForm()">Limpiar</button>
+    </div>
   </form>
 
   </div>

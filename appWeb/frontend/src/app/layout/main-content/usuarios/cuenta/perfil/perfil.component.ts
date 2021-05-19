@@ -34,7 +34,8 @@ export class PerfilComponent implements OnInit {
       image: new FormControl(null, {
         validators:[Validators.required],
         asyncValidators: [mimetype]
-      })
+      }),
+      juegos: new FormControl(null, {validators: [Validators.required]}),
     });
 
     this.usuario = this.authService.getUser();
@@ -47,7 +48,8 @@ export class PerfilComponent implements OnInit {
       tlf:            this.usuario.tlf,
       numLog:         this.usuario.numLog,
       roles:          this.usuario.roles,
-      image:          this.usuario.imagePath
+      image:          this.usuario.imagePath,
+      juegos:         this.usuario.juegos
     });
     this.Pickedimage = this.usuario.imagePath;
   }
@@ -63,7 +65,8 @@ export class PerfilComponent implements OnInit {
       this.form.value.tlf,
       this.form.value.numLog,
       this.form.value.roles,
-      this.form.value.image
+      this.form.value.image,
+      this.form.value.juegos
     );
   }
 

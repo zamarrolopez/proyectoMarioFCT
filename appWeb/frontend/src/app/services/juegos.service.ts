@@ -31,9 +31,10 @@ export class JuegosService {
   getJuegos(){
     this.http.get<{message: string, juegos: any}>(URL+ `get`)
       .pipe(map((juegoData)=>{
-        return juegoData.juegos && juegoData.juegos.map((juego: { _id: any; nombre: any; desarrollador: any; editor: any; genero: any; jugadores: any; duracion: any; idioma: any; lanzamiento: any; imagePath: any; puntos: any; }) =>{
+        return juegoData.juegos && juegoData.juegos.map((juego: { _id: any; nombre: any; descripcion:any; desarrollador: any; editor: any; genero: any; jugadores: any; duracion: any; idioma: any; lanzamiento: any; imagePath: any; puntos: any; }) =>{
           return{
             id:             juego._id,
+            descripcion:    juego.descripcion,
             nombre:         juego.nombre,
             desarrollador:  juego.desarrollador,
             editor:         juego.editor,
@@ -56,9 +57,10 @@ export class JuegosService {
   getJuegosNombre(){
     this.http.get<{message: string, juegos: any}>(URL+ `get/nombre`)
       .pipe(map((juegoData)=>{
-        return juegoData.juegos && juegoData.juegos.map((juego: { _id: any; nombre: any; desarrollador: any; editor: any; genero: any; jugadores: any; duracion: any; idioma: any; lanzamiento: any; imagePath: any; puntos:any; }) =>{
+        return juegoData.juegos && juegoData.juegos.map((juego: { _id: any; nombre: any; descripcion:any; desarrollador: any; editor: any; genero: any; jugadores: any; duracion: any; idioma: any; lanzamiento: any; imagePath: any; puntos:any; }) =>{
           return{
             id:             juego._id,
+            descripcion:    juego.descripcion,
             nombre:         juego.nombre,
             desarrollador:  juego.desarrollador,
             editor:         juego.editor,
@@ -78,9 +80,10 @@ export class JuegosService {
       });
     }
 
-  addJuego(nombre: string, desarrollador: string, editor: string, genero: string, jugadores: number, duracion: string, idioma: string, lanzamiento: string, image: File|string, puntos:number ){
+  addJuego(nombre: string, descripcion:string, desarrollador: string, editor: string, genero: string, jugadores: number, duracion: string, idioma: string, lanzamiento: string, image: File|string ){
     const juegoData = new FormData();
     juegoData.append("nombre",nombre);
+    juegoData.append("descripcion",descripcion);
     juegoData.append("desarrollador",desarrollador);
     juegoData.append("editor",editor);
     juegoData.append("genero",genero);
@@ -89,13 +92,14 @@ export class JuegosService {
     juegoData.append("idioma",idioma);
     juegoData.append("lanzamiento",lanzamiento);
     juegoData.append("image", image, nombre);
-    juegoData.append("puntos", puntos.toString());
+
 
     this.http.post<{message: string, juego:Juego}>(URL + `post`, juegoData)
     .subscribe((responseData)=>{
       const juego: Juego = {
         id:             responseData.juego.id,
         nombre:         nombre,
+        descripcion:    descripcion,
         desarrollador:  desarrollador,
         editor:         editor,
         genero:         genero,
@@ -104,19 +108,20 @@ export class JuegosService {
         idioma:         idioma,
         lanzamiento:    lanzamiento,
         imagePath:      responseData.juego.imagePath,
-        puntos:         puntos
+        puntos:         responseData.juego.puntos
       }
       this.juegos.push(juego);
       this.juegoUpdated.next([...this.juegos]);
     });
   }
 
-  updateJuego(id: string, nombre: string, desarrollador: string, editor: string, genero: string, jugadores: number, duracion: string, idioma: string, lanzamiento: string, image: File|string, puntos:number){
+  updateJuego(id: string, nombre: string, descripcion: string, desarrollador: string, editor: string, genero: string, jugadores: number, duracion: string, idioma: string, lanzamiento: string, image: File|string, puntos:number){
     let juegoData: Juego|FormData;
     if(typeof(image) == 'object'){
       juegoData = new FormData();
       juegoData.append("id", id);
       juegoData.append("nombre",nombre);
+      juegoData.append("descripcion",descripcion);
       juegoData.append("desarrollador",desarrollador);
       juegoData.append("editor",editor);
       juegoData.append("genero",genero);
@@ -130,6 +135,7 @@ export class JuegosService {
       juegoData = {
         id:id,
         nombre:nombre,
+        descripcion:descripcion,
         desarrollador:desarrollador,
         editor:editor,
         genero:genero,
@@ -144,7 +150,7 @@ export class JuegosService {
     this.http.put<{message: string, juego:Juego}>(URL + `put/`+id, juegoData).subscribe(response  =>{
       const updateJuegos = [...this.juegos];
       const oldPostIndex = updateJuegos.findIndex(p=> p.id===id);
-      const juego: Juego = {id:id, nombre:nombre, desarrollador:desarrollador, editor:editor, genero:genero, jugadores:jugadores, duracion:duracion, idioma:idioma, lanzamiento:lanzamiento, imagePath:response.juego.imagePath, puntos:puntos}
+      const juego: Juego = {id:id, nombre:nombre, descripcion:descripcion, desarrollador:desarrollador, editor:editor, genero:genero, jugadores:jugadores, duracion:duracion, idioma:idioma, lanzamiento:lanzamiento, imagePath:response.juego.imagePath, puntos:puntos}
       updateJuegos[oldPostIndex] = juego;
     });
   }
@@ -158,17 +164,18 @@ export class JuegosService {
 
   getJuego(id: string){
     return this.http.get<{
-      _id: string,
-      nombre: string,
-      desarrollador: string,
-      editor: string,
-      genero: string,
-      jugadores: number,
-      duracion: string,
-      idioma: string,
-      lanzamiento: string,
-      imagePath: string,
-      puntos: number
+      _id:            string,
+      descripcion:    string,
+      nombre:         string,
+      desarrollador:  string,
+      editor:         string,
+      genero:         string,
+      jugadores:      number,
+      duracion:       string,
+      idioma:         string,
+      lanzamiento:    string,
+      imagePath:      string,
+      puntos:         number
     }>(
       URL + `get/${id}`
       );
@@ -182,5 +189,6 @@ export class JuegosService {
   }
 
   valorarJuego(id:string, puntos:number){return this.http.put(URL + `put/valorar/${id}`, {puntos});}
+
 
 }

@@ -58,6 +58,7 @@ controladorAuth.login = async (req, res) => {
           numLog:         usuario.numLog,
           roles:          usuario.roles,
           imagePath:      usuario.imagePath,
+          juegos:         usuario.juegos,
           accessToken:    token
       });
   });

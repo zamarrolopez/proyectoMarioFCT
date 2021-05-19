@@ -27,9 +27,9 @@ controladorJuego.getJuegosSortName = async (req,res) =>{
     }); 
 };
 
-
 controladorJuego.deleteJuegos = async (req, res) => {
     await Juego.deleteMany();
+    await Valoracion.deleteMany();
     res.json({status: 'Todos los juegos han sido eliminados.'})
 };
 
@@ -43,9 +43,14 @@ controladorJuego.getJuego = async (req, res) =>{
 };
 
 controladorJuego.postJuego = async (req, res, next) => {
-    const url = req.protocol + '://'+ req.get("host");
+    let imagePath = req.body.imagePath; 
+    if(req.file){  
+      const url = req.protocol + '://'+ req.get("host");  
+      imagePath = url + "/images/juegos/"+req.file.filename  
+    }  
     const juego = new Juego({
         nombre:                 req.body.nombre,
+        descripcion:            req.body.descripcion,
         desarrollador:          req.body.desarrollador,
         editor:                 req.body.editor,
         genero:                 req.body.genero,
@@ -53,7 +58,7 @@ controladorJuego.postJuego = async (req, res, next) => {
         duracion:               req.body.duracion,
         idioma:                 req.body.idioma,
         lanzamiento:            req.body.lanzamiento,
-        //imagePath:              url + "/images/juegos/"+req.file.filename
+        imagePath:              imagePath
     });
 
     await juego.save().then(async result =>{
@@ -82,6 +87,7 @@ controladorJuego.putJuego = async (req, res) => {
     const juego = new Juego({
         _id:                    req.body.id,
         nombre:                 req.body.nombre,
+        descripcion:            req.body.descripcion,
         desarrollador:          req.body.desarrollador,
         editor:                 req.body.editor,
         genero:                 req.body.genero,
@@ -106,12 +112,10 @@ controladorJuego.putJuego = async (req, res) => {
 };
 
 controladorJuego.deleteJuego = async (req, res) => {
-    await Juego.findByIdAndRemove(req.params.id, (err, juego) =>{
+    await Juego.findByIdAndRemove(req.params.id, async (err) =>{
         if (err) {return res.status(500).send({ message: err });}
-        if (!juego) {return res.status(404).send({ message: "Juego no encontrado." });}
-        res.status(200).json({
-            message: 'Juego Eliminado.'
-        });
+        await Valoracion.findOneAndRemove({idJuego: req.params.id});
+        res.json({status: 'Juego eliminado.'})
     });
 };
 

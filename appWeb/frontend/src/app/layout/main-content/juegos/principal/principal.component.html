@@ -1,8 +1,8 @@
 <section class="main-container">
 
   <h1 id="myList">Mi lista</h1>
-  <div class="box" >
-    <a *ngFor="let juego of juegosNombre" [routerLink]="['/juegos/juego',juego.id]"><img [src]= "juego.imagePath" [alt]= "juego.nombre"></a>
+  <div class="box">
+    <a *ngFor="let juego of juegosLista" [routerLink]="['/juegos/juego',juego.id]"><img [src]= "juego.imagePath" [alt]= "juego.nombre"></a>
   </div>
 
   <h1 id="home">Popular</h1>

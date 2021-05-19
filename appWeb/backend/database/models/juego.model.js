@@ -7,6 +7,10 @@ const JuegoSchema = new mongoose.Schema({
         minlength: 2,
         required:true
     },
+    descripcion: {
+        type: String,
+        trim: true
+    },
     desarrollador: {
         type: String,
         trim: true,

@@ -3,7 +3,7 @@
       <div class="col-md-5">
           <div class="project-info-box mt-0">
               <h5>Detalles</h5>
-              <p class="mb-0">Descripcion del juego. Añadir atributo descripcion.</p>
+              <p class="mb-0">Descripcion del juego: {{juego.descripcion}}</p>
           </div><!-- / project-info-box -->
 
           <div class="project-info-box">
@@ -13,16 +13,33 @@
               <p><b>Jugadores:</b> {{juego.jugadores}}</p>
               <p><b>Duracion:</b>{{juego.duracion}}</p>
               <p><b>Idioma:</b>{{juego.idioma}}</p>
-              <p class="mb-0"><b>Precio:</b> 50€</p>
+              <p><b>Categoria:</b> {{juego.genero}}</p>
           </div><!-- / project-info-box -->
 
       </div><!-- / column -->
 
-      <div class="col-md-7">
-          <!--<img class="rounded"  [src]= "juego.imagePath" [alt]= "juego.nombre">-->
-          <img [src]="juego.imagePath" alt="project-image" class="rounded">
-          <div class="project-info-box">
-              <p><b>Categoria:</b> {{juego.genero}}</p>
+      <div class="col-md-7" >
+        <div class= "juego-image">
+          <img [src]="juego.imagePath" [alt]="juego.nombre" class="img-fluid box">
+        </div>
+          <div class="project-info-box" style="height: 165px;">
+            <p style="display: block;"><b>Puntuacion:</b> {{juego.puntos}} - {{texto}}</p>
+            <form [formGroup]= "form" (submit)="valorar()" *ngIf="posesion == true">
+            <ul class="rate-area">
+              <input type="radio" id="5-star" name="valor" value="5" formControlName="valor" /><label for="5-star" title="Magnifico">5 stars</label>
+              <input type="radio" id="4-star" name="valor" value="4" formControlName="valor" /><label for="4-star" title="Bueno">4 stars</label>
+              <input type="radio" id="3-star" name="valor" value="3" formControlName="valor" /><label for="3-star" title="Regular">3 stars</label>
+              <input type="radio" id="2-star" name="valor" value="2" formControlName="valor" /><label for="2-star" title="Malo">2 stars</label>
+              <input type="radio" id="1-star" name="valor" value="1" formControlName="valor" /><label for="1-star" title="Muy malo">1 star</label>
+              <button id="btn-guardar" type="submit" >Guardar</button>
+            </ul>
+            </form>
+            <div *ngIf="posesion == false">
+              <p>
+                ¿Tienes este juego?
+                <button type="button" id="btn-pos" (click)="obtener()" class="btn btn-primary">Si, lo tengo.</button>
+              </p>
+            </div>
           </div><!-- / project-info-box -->
       </div><!-- / column -->
   </div>

@@ -43,7 +43,8 @@ controladorUsuario.putUsuario = async (req, res) => {
         tlf:            req.body.tlf,
         numLog:         req.body.numLog,
         roles:          req.body.roles,
-        imagePath:      imagePath
+        imagePath:      imagePath,
+        juegos:         req.body.juegos
     }
     await Usuario.findByIdAndUpdate({_id:req.params.id}, usuario, {new: true, useFindAndModify: false }).then(result =>{ 
         res.status(200).json({
@@ -83,6 +84,17 @@ controladorUsuario.putRol = async (req, res) => {
     });
 };
 
+controladorUsuario.putJuego = async (req, res) => {
+    await Usuario.findById({_id:req.params.id}, async (err, usuario) =>{
+        if (err) {return res.status(500).send({ message: err });}
+        if (!usuario) {return res.status(404).send({ message: "Usuario no encontrados." });}
+        usuario.juegos.push(req.body.juego);
+        await Usuario.findByIdAndUpdate({_id:req.params.id}, {$set: {juegos: usuario.juegos}}, {new: true, useFindAndModify: false },(err, usuario)=>{
+            res.json({status: 'Juego tomado en posesion.'});
+        });
+    })
+};
+
 controladorUsuario.deleteUsuario = async (req, res) => {
     await Usuario.findByIdAndRemove(req.params.id, (err, usuario)=>{
         if (err) {return res.status(500).send({ message: err });}
@@ -90,4 +102,27 @@ controladorUsuario.deleteUsuario = async (req, res) => {
         res.json({status: 'Usuario eliminado.'})
     });
 };
+
+controladorUsuario.comprobarJuego = async (req, res) => {
+    console.log(req.params.juego)
+    await Usuario.findById({_id:req.params.id},(err, usuario)=>{
+        let posesion = false;
+        let msg = "Juego no en posesión" 
+        if (err) {return res.status(500).send({ message: err });}
+        if (!usuario) {return res.status(404).send({ message: "Usuario no encontrados." });}
+        usuario.juegos.forEach(juego => {
+            if(juego==req.params.juego){
+                posesion = true;
+                msg = "Juego en posesión" 
+            }
+        });
+        res.status(200).json({
+            message:  msg,
+            posesion: posesion
+        });  
+    });      
+};
+
+
+
 module.exports = controladorUsuario;

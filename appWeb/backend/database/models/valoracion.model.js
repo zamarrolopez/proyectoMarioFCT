@@ -2,14 +2,11 @@ const mongoose = require('mongoose');
 
 const valoracionSchema = new mongoose.Schema({
     idJuego: {
-        type: String
+        type: String,
+        required:true
     },
-    usuarios: [
-        {
-            idUsuario:      {type: Number, default:0},
-            puntuacion:     {type: Number, default:0}
-        }
-    ]
+    usuarios: { type: Array, required:true }
+
 },{
     timestamps: true
 });

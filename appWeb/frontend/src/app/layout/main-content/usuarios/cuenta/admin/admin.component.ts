@@ -27,6 +27,7 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
     this.form = new FormGroup({
       nombre: new FormControl(null, {validators:[Validators.required, Validators.minLength(3)]}),
+      descripcion: new FormControl(null, {validators: [Validators.required]}),
       desarrollador: new FormControl(null, {validators: [Validators.required]}),
       editor: new FormControl(null, {validators: [Validators.required]}),
       genero: new FormControl(null, {validators: [Validators.required]}),
@@ -49,6 +50,7 @@ export class AdminComponent implements OnInit {
           this.juego = {
             id:             juegoData._id,
             nombre:         juegoData.nombre,
+            descripcion:    juegoData.descripcion,
             desarrollador:  juegoData.desarrollador,
             editor:         juegoData.editor,
             genero:         juegoData.genero,
@@ -56,11 +58,13 @@ export class AdminComponent implements OnInit {
             duracion:       juegoData.duracion,
             idioma:         juegoData.idioma,
             lanzamiento:    juegoData.lanzamiento,
-            imagePath:      juegoData.imagePath
+            imagePath:      juegoData.imagePath,
+            puntos:         juegoData.puntos
           }
 
           this.form.setValue({
             nombre:         this.juego.nombre,
+            descripcion:    this.juego.descripcion,
             desarrollador:  this.juego.desarrollador,
             editor:         this.juego.editor,
             genero:         this.juego.genero,
@@ -109,6 +113,7 @@ export class AdminComponent implements OnInit {
     if(this.mode==="create"){
       this.juegosService.addJuego(
         this.form.value.nombre,
+        this.form.value.descripcion,
         this.form.value.desarrollador,
         this.form.value.editor,
         this.form.value.genero,
@@ -123,6 +128,7 @@ export class AdminComponent implements OnInit {
       this.juegosService.updateJuego(
         this.juegoId,
         this.form.value.nombre,
+        this.form.value.descripcion,
         this.form.value.desarrollador,
         this.form.value.editor,
         this.form.value.genero,
@@ -130,7 +136,8 @@ export class AdminComponent implements OnInit {
         this.form.value.duracion,
         this.form.value.idioma,
         this.form.value.lanzamiento,
-        this.form.value.image
+        this.form.value.image,
+        this.juego.puntos
       );
       window.location.href = '/usuario/cuenta/admin';
     }

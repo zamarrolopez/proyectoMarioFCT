@@ -54,7 +54,8 @@ const UsuarioSchema = new mongoose.Schema({
         type: String,
         trim: true,
         default: ""
-    }
+    },
+    juegos: { type: Array, required:true }
 },{
     timestamps: true
 });

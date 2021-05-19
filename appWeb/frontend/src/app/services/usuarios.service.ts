@@ -21,7 +21,7 @@ export class UsuariosService {
     }
 
 
-    putOne(id: string, nombreU: string, pass: string, email: string, nombre: string, apellidos: string, tlf: number, numLog: number, roles: string, image: File|string ){
+    putOne(id: string, nombreU: string, pass: string, email: string, nombre: string, apellidos: string, tlf: number, numLog: number, roles: string, image: File|string, juegos:Array<string> ){
       let usuarioData: Usuario|FormData;
       if(typeof(image) == 'object'){
         usuarioData = new FormData();
@@ -46,7 +46,8 @@ export class UsuariosService {
           tlf:tlf,
           numLog:numLog,
           roles:roles,
-          imagePath: image
+          imagePath: image,
+          juegos: juegos
         }
       }
 
@@ -61,7 +62,8 @@ export class UsuariosService {
           tlf:tlf,
           numLog:numLog,
           roles:roles,
-          imagePath: response.usuario.imagePath
+          imagePath: response.usuario.imagePath,
+          juegos: juegos
         }
         this.authService.saveUser(usuario);
         window.location.reload();
@@ -72,4 +74,6 @@ export class UsuariosService {
     putPass(id:string, pass:string){return this.http.put(URL + `put/pass/${id}`, {pass});}
     putEmail(id:string, email:string){return this.http.put(URL + `put/email/${id}`, {email});}
     putRol(id:string, roles:string){return this.http.put(URL + `put/roles/${id}`, {roles});}
+    putJuegos(id:string, juego:string){return this.http.put<{status: string}>(URL + `put/juego/${id}`, {juego});}
+    comprobarJuego(id:string, juego:string){return this.http.get<{message:string, posesion:boolean}>(URL + `get/juego/${id}/${juego}`);}
 }

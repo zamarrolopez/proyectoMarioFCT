@@ -1,5 +1,6 @@
 export interface Juego {
   id:             string;
+  descripcion:    string;
   nombre:         string;
   desarrollador:  string;
   editor:         string;

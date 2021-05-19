@@ -10,4 +10,5 @@ export interface Usuario {
     numLog:     number;
     roles:      string;
     imagePath:  string;
+    juegos:     Array<string>;
 }

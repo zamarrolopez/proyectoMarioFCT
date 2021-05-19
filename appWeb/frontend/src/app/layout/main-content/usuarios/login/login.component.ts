@@ -42,7 +42,8 @@ export class LoginComponent implements OnInit {
           tlf:            data.tlf,
           numLog:         data.numLog,
           roles:          data.roles,
-          imagePath:      data.imagePath
+          imagePath:      data.imagePath,
+          juegos:         data.juegos
         }
         console.log(this.usuario)
         this.authService.saveToken(data.accessToken);
